@@ -1,0 +1,45 @@
+group 'com.userexperior.user_experior'
+version '1.0'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.3'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        jcenter()
+        //Add this below <plugin_name> is whatever your plugin is called eg. url_launcher
+        flatDir {
+            dirs project(':user_experior').file('libs')
+            // e.g. dirs project(':url_launcher').file('libs')  - don't miss the ':'
+        }
+    }
+}
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 16
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+}
+
+dependencies {
+    implementation 'com.userexperior:userexperior-android:+'
+    //implementation(name: 'userexperiorsdk-pixelcopy253', ext: 'aar')
+    implementation 'com.android.support:support-compat:28.0.0'
+}

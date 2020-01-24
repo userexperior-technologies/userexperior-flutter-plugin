@@ -1,0 +1,29 @@
+PODS:
+  - Flutter (1.0.0)
+  - user_experior (0.0.1):
+    - Flutter
+    - UserExperior (~> 4.1.39)
+  - UserExperior (4.1.39)
+
+DEPENDENCIES:
+  - Flutter (from `.symlinks/flutter/ios`)
+  - user_experior (from `.symlinks/plugins/user_experior/ios`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - UserExperior
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: ".symlinks/flutter/ios"
+  user_experior:
+    :path: ".symlinks/plugins/user_experior/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  user_experior: 95c0eee44a13bd6963c9ead6b32396114685f36b
+  UserExperior: f0e1281733bbd2340583c4b8e6289ab21ba98c68
+
+PODFILE CHECKSUM: 10ae9c18d12c9ffc2275c9a159a3b1e281990db0
+
+COCOAPODS: 1.7.5
