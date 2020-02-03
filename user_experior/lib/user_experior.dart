@@ -33,7 +33,7 @@ class UserExperior {
   }
   static Future<void> setUserIdentifier(String userIdentifier) async{
     if (Platform.isAndroid) {
-      await _channel.invokeMethod('setUserIdentity',{"userIdentifier":userIdentifier});
+      await _channel.invokeMethod('setUserIdentifier',{"userIdentifier":userIdentifier});
     }
   }
   static Future<void> setCustomTag(String customTag, String customType) async{
