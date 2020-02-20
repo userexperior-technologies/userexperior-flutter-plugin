@@ -12,34 +12,22 @@ class UserExperior {
     return version;
   }
   static void startRecording(String ueVersionKey) async{
-    if (Platform.isAndroid) {
-      await _channel. invokeMethod('startRecording',{"ueVersionKey":ueVersionKey});
-    }
+    await _channel. invokeMethod('startRecording',{"ueVersionKey":ueVersionKey});
   }
   static Future<void> stopRecording() async{
-    if (Platform.isAndroid) {
-      await _channel.invokeMethod('stopRecording');
-    }
+    await _channel.invokeMethod('stopRecording');
   }
   static Future<void> pauseRecording() async{
-    if (Platform.isAndroid) {
-      await _channel.invokeMethod('pauseRecording');
-    }
+    await _channel.invokeMethod('pauseRecording');
   }
   static Future<void> resumeRecording() async{
-    if (Platform.isAndroid) {
-      await _channel.invokeMethod('resumeRecording');
-    }
+    await _channel.invokeMethod('resumeRecording');
   }
   static Future<void> setUserIdentifier(String userIdentifier) async{
-    if (Platform.isAndroid) {
-      await _channel.invokeMethod('setUserIdentifier',{"userIdentifier":userIdentifier});
-    }
+    await _channel.invokeMethod('setUserIdentifier',{"userIdentifier":userIdentifier});
   }
   static Future<void> setCustomTag(String customTag, String customType) async{
-    if (Platform.isAndroid) {
-      await _channel.invokeMethod('setCustomTag',{"customTag":customTag, "customType":customType});
-    }
+    await _channel.invokeMethod('setCustomTag',{"customTag":customTag, "customType":customType});
   }
   static Future<void> startScreen(String screenName) async{
     if (Platform.isAndroid) {
@@ -62,24 +50,16 @@ class UserExperior {
     }
   }
   static Future<void> optOut() async{
-    if (Platform.isAndroid) {
-      await _channel.invokeMethod('optOut');
-    }
+    await _channel.invokeMethod('optOut');
   }
   static Future<void> optIn() async{
-    if (Platform.isAndroid) {
-      await _channel.invokeMethod('optIn');
-    }
+    await _channel.invokeMethod('optIn');
   }
   static Future<bool> getOptOutStatus() async{
-    if (Platform.isAndroid) {
-      final bool optOutStatus= await _channel.invokeMethod('getOptOutStatus');
-      return optOutStatus;
-    }
+    final bool optOutStatus= await _channel.invokeMethod('getOptOutStatus');
+    return optOutStatus;
   }
   static Future<void> consent() async{
-    if (Platform.isAndroid) {
-      await _channel.invokeMethod('consent');
-    }
+    await _channel.invokeMethod('consent');
   }
 }
