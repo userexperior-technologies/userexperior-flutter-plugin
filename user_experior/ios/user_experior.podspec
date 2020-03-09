@@ -17,7 +17,7 @@ A new flutter plugin project.
   s.dependency 'Flutter'
 
   #s.vendored_frameworks = 'UserExperior.framework'
-  s.dependency 'UserExperior','~> 4.1.62'
+  s.dependency 'UserExperior','~> 4.1.65'
 
   s.ios.deployment_target = '8.0'
 end
