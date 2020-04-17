@@ -35,14 +35,10 @@ class UserExperior {
     }
   }
   static Future<void> startTimer(String timerName) async{
-    if (Platform.isAndroid) {
-      await _channel.invokeMethod('startTimer',{"timerName":timerName});
-    }
+    await _channel.invokeMethod('startTimer',{"timerName":timerName});
   }
   static Future<void> endTimer(String timerName) async{
-    if (Platform.isAndroid) {
-      await _channel.invokeMethod('endTimer',{"timerName":timerName});
-    }
+    await _channel.invokeMethod('endTimer',{"timerName":timerName});
   }
   static Future<void> setDeviceLocation(double latitude, double longitude) async{
     if (Platform.isAndroid) {
