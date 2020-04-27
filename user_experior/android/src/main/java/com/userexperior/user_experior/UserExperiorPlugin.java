@@ -25,7 +25,7 @@ public class UserExperiorPlugin implements MethodCallHandler {
   public static void registerWith(Registrar registrar) {
     final MethodChannel channel = new MethodChannel(registrar.messenger(), "user_experior");
     channel.setMethodCallHandler(new UserExperiorPlugin(registrar.activity()));
-    flutterView = registrar.view();
+    //flutterView = registrar.view();
   }
 
   @Override
