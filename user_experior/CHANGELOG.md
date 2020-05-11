@@ -1,3 +1,3 @@
-## 1.0.9
+## 1.1.1
 
-* TODO: Describe initial release.
+* Resolved iOS platform specific initialisation issue
