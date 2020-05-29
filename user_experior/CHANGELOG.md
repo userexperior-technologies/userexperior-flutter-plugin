@@ -1,3 +1,3 @@
-## 1.1.1
+## 1.1.2
 
-* Resolved iOS platform specific initialisation issue
+* Performance improvement
