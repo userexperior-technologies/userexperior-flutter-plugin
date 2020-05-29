@@ -1,5 +1,5 @@
-name: user_experior
-description: A new flutter plugin project.
+name: UserExperior
+description: UserExperior records every interaction on your app, enabling you to identify, analyze and fix user experience issues. UserExperior is used by UI/UX designers,Product Managers, Mobile App developers to understand user experince issues experienced by their customers.
 version: 1.1.2
 #author: Vimlesh Gautam<vimlesh@userexperior.com>
 homepage: https://www.userexperior.com/
