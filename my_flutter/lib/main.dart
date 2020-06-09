@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_crashlytics/flutter_crashlytics.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -47,7 +48,16 @@ class SecondScreen extends StatelessWidget {
           onPressed: () {
             // Navigate back to the first screen by popping the current route
             // off the stack.
-            Navigator.pop(context);
+            // Navigator.pop(context);
+            // var lst = new List(3); 
+            // lst[0] = 12; 
+            // lst[1] = 13; 
+            // lst[2] = 11; 
+            // // print(lst[12]);
+            // lst.removeAt(12);
+            // throw Exception("This is a crash!");
+            FlutterCrashlytics().reportCrash("forced crash", StackTrace.current, forceCrash: true);
+
           },
           child: Text('Go back!'),
         ),
