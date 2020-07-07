@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_crashlytics/flutter_crashlytics.dart';
+import 'package:user_experior/user_experior.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -17,8 +17,11 @@ void main() {
 }
 
 class FirstScreen extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+    UserExperior.startRecording('0fbb908e-3e27-41b7-946c-d48283553746');
+
     return Scaffold(
       appBar: AppBar(
         title: Text('First Screen'),
@@ -56,7 +59,7 @@ class SecondScreen extends StatelessWidget {
             // // print(lst[12]);
             // lst.removeAt(12);
             // throw Exception("This is a crash!");
-            FlutterCrashlytics().reportCrash("forced crash", StackTrace.current, forceCrash: true);
+            // FlutterCrashlytics().reportCrash("forced crash", StackTrace.current, forceCrash: true);
 
           },
           child: Text('Go back!'),

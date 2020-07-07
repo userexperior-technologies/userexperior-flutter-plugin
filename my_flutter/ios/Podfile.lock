@@ -1,33 +1,28 @@
 PODS:
-  - Crashlytics (3.14.0):
-    - Fabric (~> 1.10.2)
-  - Fabric (1.10.2)
   - Flutter (1.0.0)
-  - flutter_crashlytics (0.0.1):
-    - Crashlytics
-    - Fabric
+  - user_experior (1.1.2):
     - Flutter
+    - UserExperior (~> 4.3.102)
+  - UserExperior (4.3.102)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
-  - flutter_crashlytics (from `.symlinks/plugins/flutter_crashlytics/ios`)
+  - user_experior (from `.symlinks/plugins/user_experior/ios`)
 
 SPEC REPOS:
   trunk:
-    - Crashlytics
-    - Fabric
+    - UserExperior
 
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
-  flutter_crashlytics:
-    :path: ".symlinks/plugins/flutter_crashlytics/ios"
+  user_experior:
+    :path: ".symlinks/plugins/user_experior/ios"
 
 SPEC CHECKSUMS:
-  Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
-  Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
-  flutter_crashlytics: 7b5bba7233066381c8e18343435342ba05f3053c
+  user_experior: 3c4f8b9b78c33b2973ac18822683298f7a15c558
+  UserExperior: 7d8c4b91ed678c11ad4f2f30a10fcca6b0314bd6
 
 PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
 
