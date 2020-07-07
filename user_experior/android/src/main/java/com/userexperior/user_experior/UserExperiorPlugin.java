@@ -1,31 +1,41 @@
 package com.userexperior.user_experior;
 
 import android.app.Activity;
-import android.view.SurfaceView;
+
+import androidx.annotation.NonNull;
 
 import com.userexperior.UserExperior;
+
+import java.lang.reflect.Field;
+
+import io.flutter.embedding.android.FlutterActivity;
+import io.flutter.embedding.android.FlutterView;
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import io.flutter.embedding.engine.plugins.activity.ActivityAware;
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
+import io.flutter.plugin.common.BinaryMessenger;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 import io.flutter.plugin.common.PluginRegistry.Registrar;
-import io.flutter.view.FlutterView;
+
 
 /** UserExperiorPlugin */
-public class UserExperiorPlugin implements MethodCallHandler {
+public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, ActivityAware {
 
-  private final Activity activity;
-  private static FlutterView flutterView;
+  private static Activity activity;
 
-  private UserExperiorPlugin(Activity activity) {
-    this.activity = activity;
-  }
+  private static FlutterPluginBinding flutterPluginBinding;
+
+  private static BinaryMessenger messenger;
 
   /** Plugin registration. */
   public static void registerWith(Registrar registrar) {
     final MethodChannel channel = new MethodChannel(registrar.messenger(), "user_experior");
-    channel.setMethodCallHandler(new UserExperiorPlugin(registrar.activity()));
-    //flutterView = registrar.view();
+    channel.setMethodCallHandler(new UserExperiorPlugin());
+    UserExperiorPlugin.activity = registrar.activity();
+    messenger = flutterPluginBinding.getBinaryMessenger();
   }
 
   @Override
@@ -37,7 +47,23 @@ public class UserExperiorPlugin implements MethodCallHandler {
       case "startRecording":
         String ueVersionKey = call.argument("ueVersionKey");
         try {
-            UserExperior.startRecording(activity.getApplicationContext(), ueVersionKey, (SurfaceView)flutterView);
+
+            if (activity != null) {
+                FlutterActivity activityObject = (FlutterActivity) UserExperiorPlugin.activity;
+                Class<?> activityClass = activityObject.getClass();
+                Field delegateField = ReflectionUtilities.getField(activityClass, "delegate", true);
+                delegateField.setAccessible(true);
+                Object delegateObject = delegateField.get(activityObject);
+
+                Class<?> delegateClass = delegateObject.getClass();
+                Field flutterViewField = ReflectionUtilities.getField(delegateClass, "flutterView", true);
+                flutterViewField.setAccessible(true);
+                Object targetObject = flutterViewField.get(delegateObject);
+
+                FlutterView flutterView = (FlutterView)targetObject;
+                //flutterView.getAttachedFlutterEngine().getRenderer().getBitmap();
+                UserExperior.startRecording(activity.getApplicationContext(), ueVersionKey, flutterView);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -120,4 +146,39 @@ public class UserExperiorPlugin implements MethodCallHandler {
         break;
     }
   }
+
+    @Override
+    public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
+        flutterPluginBinding = binding;
+        messenger = flutterPluginBinding.getBinaryMessenger();
+    }
+
+    @Override
+    public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+        flutterPluginBinding = null;
+    }
+
+    @Override
+    public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
+      messenger = flutterPluginBinding.getBinaryMessenger();
+      final MethodChannel channel = new MethodChannel(messenger, "user_experior");
+      channel.setMethodCallHandler(new UserExperiorPlugin());
+      UserExperiorPlugin.activity = binding.getActivity();
+    }
+
+    @Override
+    public void onDetachedFromActivityForConfigChanges() {
+      onDetachedFromActivity();
+    }
+
+    @Override
+    public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding binding) {
+      onAttachedToActivity(binding);
+      UserExperiorPlugin.activity = binding.getActivity();
+    }
+
+    @Override
+    public void onDetachedFromActivity() {
+        UserExperiorPlugin.activity = null;
+    }
 }
