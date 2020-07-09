@@ -1,3 +1,5 @@
-## 1.1.3
+## 1.1.4
+* Performance improvement
 
-* TODO: Describe initial release.
+## 1.1.3
+* Added support recent flutter version 
