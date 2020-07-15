@@ -12,7 +12,7 @@ class UserExperior {
     return version;
   }
   static void startRecording(String ueVersionKey) async{
-    await _channel. invokeMethod('startRecording',{"ueVersionKey":ueVersionKey});
+    await _channel.invokeMethod('startRecording',{"ueVersionKey":ueVersionKey});
   }
   static Future<void> stopRecording() async{
     await _channel.invokeMethod('stopRecording');

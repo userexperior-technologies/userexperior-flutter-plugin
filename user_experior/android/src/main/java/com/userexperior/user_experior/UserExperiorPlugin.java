@@ -61,7 +61,6 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
                 Object targetObject = flutterViewField.get(delegateObject);
 
                 FlutterView flutterView = (FlutterView)targetObject;
-                //flutterView.getAttachedFlutterEngine().getRenderer().getBitmap();
                 UserExperior.startRecording(activity.getApplicationContext(), ueVersionKey, flutterView);
             }
         } catch (Exception e) {
@@ -102,7 +101,7 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
           e.printStackTrace();
         }
         break;
-      /*case "startTimer": {
+      case "startTimer": {
         String timerName = call.argument("timerName");
         try {
           UserExperior.startTimer(timerName);
@@ -120,7 +119,7 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
         }
         break;
       }
-      case "setDeviceLocation":
+      /*case "setDeviceLocation":
         double latitude = call.argument("latitude");
         double longitude = call.argument("longitude");
         try {
