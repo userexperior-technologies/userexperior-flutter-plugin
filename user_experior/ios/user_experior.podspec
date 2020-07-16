@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'user_experior'
-  s.version          = '1.1.4'
+  s.version          = '1.1.7'
   s.summary          = 'A new flutter plugin project.'
   s.description      = <<-DESC
 A new flutter plugin project.
@@ -17,7 +17,7 @@ A new flutter plugin project.
   s.dependency 'Flutter'
 
   #s.vendored_frameworks = 'UserExperior.framework'
-  s.dependency 'UserExperior','~> 4.3.103'
+  s.dependency 'UserExperior','~> 4.3.104'
 
   s.ios.deployment_target = '8.0'
 end
