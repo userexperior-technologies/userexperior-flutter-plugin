@@ -1,3 +1,6 @@
+## 1.1.7
+* Embedding FlutterView Support
+
 ## 1.1.6
 * Fixes Android export issues
 
