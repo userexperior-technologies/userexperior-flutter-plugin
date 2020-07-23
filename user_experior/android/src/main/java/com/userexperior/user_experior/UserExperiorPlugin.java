@@ -6,10 +6,6 @@ import androidx.annotation.NonNull;
 
 import com.userexperior.UserExperior;
 
-import java.lang.reflect.Field;
-
-import io.flutter.embedding.android.FlutterActivity;
-import io.flutter.embedding.android.FlutterView;
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
@@ -35,7 +31,7 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
     final MethodChannel channel = new MethodChannel(registrar.messenger(), "user_experior");
     channel.setMethodCallHandler(new UserExperiorPlugin());
     UserExperiorPlugin.activity = registrar.activity();
-    messenger = flutterPluginBinding.getBinaryMessenger();
+    messenger = registrar.messenger();
   }
 
   @Override
@@ -47,24 +43,12 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
       case "startRecording":
         String ueVersionKey = call.argument("ueVersionKey");
         try {
-
             if (activity != null) {
-                FlutterActivity activityObject = (FlutterActivity) UserExperiorPlugin.activity;
-                Class<?> activityClass = activityObject.getClass();
-                Field delegateField = ReflectionUtilities.getField(activityClass, "delegate", true);
-                delegateField.setAccessible(true);
-                Object delegateObject = delegateField.get(activityObject);
-
-                Class<?> delegateClass = delegateObject.getClass();
-                Field flutterViewField = ReflectionUtilities.getField(delegateClass, "flutterView", true);
-                flutterViewField.setAccessible(true);
-                Object targetObject = flutterViewField.get(delegateObject);
-
-                FlutterView flutterView = (FlutterView)targetObject;
-                UserExperior.startRecording(activity.getApplicationContext(), ueVersionKey, flutterView);
+                UserExperior.startRecording(activity.getApplicationContext(), ueVersionKey);
             }
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("userexperiorlogs: "+e.getMessage());
         }
         break;
       case "stopRecording":
