@@ -1,3 +1,9 @@
+## 1.1.9
+* Logs removed
+
+## 1.1.8
+* Old Flutter and Embedding FlutterView Support
+
 ## 1.1.7
 * Embedding FlutterView Support
 

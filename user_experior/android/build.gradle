@@ -20,6 +20,8 @@ rootProject.allprojects {
         flatDir {
             dirs project(':user_experior').file('libs')
             // e.g. dirs project(':url_launcher').file('libs')  - don't miss the ':'
+
+            //dirs 'libs'
         }
     }
 }
@@ -40,5 +42,5 @@ android {
 
 dependencies {
     implementation 'com.userexperior:userexperior-android:+'
-    //implementation(name: 'userexperiorsdk-flutter-23july-1137', ext: 'aar')
+    //implementation(name: 'userexperiorsdk-flutter-29july-437', ext: 'aar')
 }

@@ -1,9 +1,6 @@
 package com.userexperior.user_experior;
 
 import android.app.Activity;
-
-import androidx.annotation.NonNull;
-
 import com.userexperior.UserExperior;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
@@ -131,18 +128,18 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
   }
 
     @Override
-    public void onAttachedToEngine(@NonNull FlutterPluginBinding binding) {
+    public void onAttachedToEngine(FlutterPluginBinding binding) {
         flutterPluginBinding = binding;
         messenger = flutterPluginBinding.getBinaryMessenger();
     }
 
     @Override
-    public void onDetachedFromEngine(@NonNull FlutterPluginBinding binding) {
+    public void onDetachedFromEngine(FlutterPluginBinding binding) {
         flutterPluginBinding = null;
     }
 
     @Override
-    public void onAttachedToActivity(@NonNull ActivityPluginBinding binding) {
+    public void onAttachedToActivity(ActivityPluginBinding binding) {
       messenger = flutterPluginBinding.getBinaryMessenger();
       final MethodChannel channel = new MethodChannel(messenger, "user_experior");
       channel.setMethodCallHandler(new UserExperiorPlugin());
@@ -155,7 +152,7 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
     }
 
     @Override
-    public void onReattachedToActivityForConfigChanges(@NonNull ActivityPluginBinding binding) {
+    public void onReattachedToActivityForConfigChanges(ActivityPluginBinding binding) {
       onAttachedToActivity(binding);
       UserExperiorPlugin.activity = binding.getActivity();
     }
