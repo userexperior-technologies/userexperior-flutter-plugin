@@ -1,3 +1,6 @@
+## 1.1.11
+* Fixes iOS crash
+
 ## 1.1.9
 * Logs removed
 

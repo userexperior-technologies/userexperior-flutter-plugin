@@ -3,22 +3,16 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'user_experior'
-  s.version          = '1.1.9'
-  s.summary          = 'A new flutter plugin project.'
-  s.description      = <<-DESC
-A new flutter plugin project.
-                       DESC
-  s.homepage         = 'http://example.com'
+  s.version          = '1.1.11'
+  s.summary          = 'Understand and fix user experience issues.'
+  s.homepage         = 'https://www.userexperior.com/'
   s.license          = { :file => '../LICENSE' }
-  s.author           = { 'Your Company' => 'email@example.com' }
+  s.author           = { 'UserExperior' => 'hello@userexperior.com' }
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-
-  #s.vendored_frameworks = 'UserExperior.framework'
-  s.dependency 'UserExperior','~> 4.3.105'
-
+  s.dependency 'UserExperior','~> 4.3.108'
   s.ios.deployment_target = '8.0'
 end
 
