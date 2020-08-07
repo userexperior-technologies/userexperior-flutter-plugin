@@ -1,14 +1,8 @@
 # user_experior
 
-A new flutter plugin project.
+A  flutter plugin of UserExperior which helps to understand and fix user experience issues.
 
 ## Getting Started
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+A link to our integration and API guide as follows:
+https://userexperior-technologies.github.io/integration-guide/#/flutter
