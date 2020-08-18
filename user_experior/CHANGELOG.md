@@ -1,3 +1,6 @@
+## 1.1.12
+* Added Rage tap feature
+
 ## 1.1.11
 * Fixes iOS crash
 

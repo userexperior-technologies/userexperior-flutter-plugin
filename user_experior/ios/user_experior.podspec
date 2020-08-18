@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'UserExperior','~> 4.3.110'
+  s.dependency 'UserExperior','~> 4.3.112'
   s.ios.deployment_target = '8.0'
 end
 
