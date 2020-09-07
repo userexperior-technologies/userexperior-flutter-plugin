@@ -1,3 +1,6 @@
+## 1.1.13
+* Fixes screen resolution and orientation
+
 ## 1.1.12
 * Added Rage tap feature
 

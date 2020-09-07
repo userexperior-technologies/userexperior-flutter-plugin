@@ -5,4 +5,4 @@ A  flutter plugin of UserExperior which helps to understand and fix user experie
 ## Getting Started
 
 A link to our integration and API guide as follows:
-https://userexperior-technologies.github.io/integration-guide/#/flutter
+https://www.userexperior.com/docs/flutter/
