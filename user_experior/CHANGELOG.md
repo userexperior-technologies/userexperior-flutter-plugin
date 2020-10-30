@@ -1,3 +1,9 @@
+## 1.1.15
+* Performance optimization
+
+## 1.1.14
+* Added more 3rd Party integrations
+
 ## 1.1.13
 * Fixes screen resolution and orientation
 
