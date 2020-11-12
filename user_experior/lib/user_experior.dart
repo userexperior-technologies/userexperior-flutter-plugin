@@ -32,6 +32,31 @@ class UserExperior {
         .invokeMethod('setUserIdentifier', {"userIdentifier": userIdentifier});
   }
 
+  static Future<void> setUserProperties(Map<String, dynamic> properties) async {
+    await _channel
+        .invokeMethod('setUserProperties', {"properties": properties});
+  }
+
+  static Future<void> logEvent(String eventName) async {
+    await _channel.invokeMethod('logEvent', {"eventName": eventName});
+  }
+
+  static Future<void> logEventWithProperties(
+      String eventName, Map<String, dynamic> properties) async {
+    await _channel.invokeMethod('logEventWithProperties',
+        {"eventName": eventName, "properties": properties});
+  }
+
+  static Future<void> logMessage(String messageName) async {
+    await _channel.invokeMethod('logMessage', {"messageName": messageName});
+  }
+
+  static Future<void> logMessageWithProperties(
+      String messageName, Map<String, dynamic> properties) async {
+    await _channel.invokeMethod('logMessageWithProperties',
+        {"messageName": messageName, "properties": properties});
+  }
+
   static Future<void> setCustomTag(String customTag, String customType) async {
     await _channel.invokeMethod(
         'setCustomTag', {"customTag": customTag, "customType": customType});
