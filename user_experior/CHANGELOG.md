@@ -1,3 +1,6 @@
+## 1.1.16
+* Segmentation Feature
+
 ## 1.1.15
 * Performance optimization
 
