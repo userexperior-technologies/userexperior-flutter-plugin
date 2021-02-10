@@ -3,6 +3,8 @@ package com.userexperior.user_experior;
 import android.app.Activity;
 import com.userexperior.UserExperior;
 
+import java.util.Map;
+
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
@@ -65,6 +67,16 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
           e.printStackTrace();
         }
         break;
+      case "setUserProperties":
+        final Map<String, Object> map = call.argument("properties");
+        try {
+          if (map != null && map.size() != 0) {
+            UserExperior.setUserProperties(map);
+          }
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+        break;
       case "setCustomTag":
         String customTag = call.argument("customTag");
         String customType = call.argument("customType");
@@ -72,6 +84,44 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
           UserExperior.setCustomTag(customTag, customType);
         } catch (Exception e) {
           e.printStackTrace();
+        }
+        break;
+      case "logEvent":
+        String eventName = call.argument("eventName");
+        if (eventName == null || eventName.length() == 0) {
+          throw new IllegalArgumentException("missing event Name");
+        }
+        UserExperior.logEvent(eventName);
+        break;
+      case "logEventWithProperties":
+        String eventName = call.argument("eventName");
+        final Map<String, Object> map = call.argument("properties");
+        if (eventName == null || eventName.length() == 0) {
+          throw new IllegalArgumentException("missing event Name");
+        }
+        if (map == null || map.size() == 0) {
+          UserExperior.logEvent(eventName);
+        } else {
+          UserExperior.logEvent(eventName, map);
+        }
+        break;
+      case "logMessage":
+        String messageName = call.argument("messageName");
+        if (messageName == null || messageName.length() == 0) {
+          throw new IllegalArgumentException("missing msg Name");
+        }
+        UserExperior.logMessage(messageName);
+        break;
+      case "logMessageWithProperties":
+        String messageName = call.argument("messageName");
+        final Map<String, Object> map = call.argument("properties");
+        if (messageName == null || messageName.length() == 0) {
+          throw new IllegalArgumentException("missing msg Name");
+        }
+        if (map == null || map.size() == 0) {
+          UserExperior.logMessage(messageName);
+        } else {
+          UserExperior.logMessage(messageName, map);
         }
         break;
       case "startScreen":
