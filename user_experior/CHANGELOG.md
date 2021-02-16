@@ -1,3 +1,6 @@
+## 1.1.17
+* Segmentation Feature - HashMap issue fixed
+
 ## 1.1.16
 * Segmentation Feature
 

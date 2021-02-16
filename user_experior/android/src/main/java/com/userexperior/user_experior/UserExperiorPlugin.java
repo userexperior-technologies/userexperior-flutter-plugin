@@ -3,7 +3,7 @@ package com.userexperior.user_experior;
 import android.app.Activity;
 import com.userexperior.UserExperior;
 
-import java.util.Map;
+import java.util.HashMap;
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin;
 import io.flutter.embedding.engine.plugins.activity.ActivityAware;
@@ -68,7 +68,7 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
         }
         break;
       case "setUserProperties":
-        final Map<String, Object> map = call.argument("properties");
+        final HashMap<String, Object> map = call.argument("properties");
         try {
           if (map != null && map.size() != 0) {
             UserExperior.setUserProperties(map);
@@ -91,18 +91,30 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
         if (eventName == null || eventName.length() == 0) {
           throw new IllegalArgumentException("missing event Name");
         }
-        UserExperior.logEvent(eventName);
+        try {
+          UserExperior.logEvent(eventName);
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
         break;
       case "logEventWithProperties":
-        String eventName = call.argument("eventName");
-        final Map<String, Object> map = call.argument("properties");
-        if (eventName == null || eventName.length() == 0) {
+        String eventNameWithProp = call.argument("eventName");
+        final HashMap<String, Object> evtMap = call.argument("properties");
+        if (eventNameWithProp == null || eventNameWithProp.length() == 0) {
           throw new IllegalArgumentException("missing event Name");
         }
-        if (map == null || map.size() == 0) {
-          UserExperior.logEvent(eventName);
+        if (evtMap == null || evtMap.size() == 0) {
+          try {
+            UserExperior.logEvent(eventNameWithProp);
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
         } else {
-          UserExperior.logEvent(eventName, map);
+          try {
+            UserExperior.logEvent(eventNameWithProp, evtMap);
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
         }
         break;
       case "logMessage":
@@ -110,18 +122,30 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
         if (messageName == null || messageName.length() == 0) {
           throw new IllegalArgumentException("missing msg Name");
         }
-        UserExperior.logMessage(messageName);
+        try {
+          UserExperior.logMessage(messageName);
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
         break;
       case "logMessageWithProperties":
-        String messageName = call.argument("messageName");
-        final Map<String, Object> map = call.argument("properties");
-        if (messageName == null || messageName.length() == 0) {
+        String messageNameWithProp = call.argument("messageName");
+        final HashMap<String, Object> msgMap = call.argument("properties");
+        if (messageNameWithProp == null || messageNameWithProp.length() == 0) {
           throw new IllegalArgumentException("missing msg Name");
         }
-        if (map == null || map.size() == 0) {
-          UserExperior.logMessage(messageName);
+        if (msgMap == null || msgMap.size() == 0) {
+          try {
+            UserExperior.logMessage(messageNameWithProp);
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
         } else {
-          UserExperior.logMessage(messageName, map);
+          try {
+            UserExperior.logMessage(messageNameWithProp, msgMap);
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
         }
         break;
       case "startScreen":
