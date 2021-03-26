@@ -1,6 +1,5 @@
 #import "UserExperiorPlugin.h"
-//#import <user_experior/user_experior-Swift.h>
-#import <UserExperior/UserExperior-Swift.h>
+@import UserExperiorSDK;
 
 @implementation UserExperiorPlugin
 //+ (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {

@@ -1,3 +1,6 @@
+## 1.1.18
+* Implemented XCFramework
+
 ## 1.1.17
 * Segmentation Feature - HashMap issue fixed
 
