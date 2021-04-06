@@ -1,3 +1,6 @@
+## 1.1.19
+* Bug Fixes
+
 ## 1.1.18
 * Implemented XCFramework
 

@@ -35,6 +35,14 @@
         NSString* screenName = call.arguments[@"screenName"];
         [UserExperior startScreen:screenName];
     }
+    else if ([@"startTimer" isEqualToString:call.method]) {
+        NSString* timerName = call.arguments[@"timerName"];
+        [UserExperior startTimer:timerName];
+    }
+    else if ([@"endTimer" isEqualToString:call.method]) {
+        NSString* timerName = call.arguments[@"timerName"];
+        [UserExperior stopTimer:timerName];
+    }
     else if ([@"setUserIdentifier" isEqualToString:call.method]) {
         NSString* userIdentifier = call.arguments[@"userIdentifier"];
         [UserExperior setUserIdentifier:userIdentifier];
