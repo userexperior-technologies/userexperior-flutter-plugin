@@ -1,3 +1,6 @@
+## 1.1.20
+* API Response Time Monitoring Enhancement
+
 ## 1.1.19
 * Bug Fixes
 

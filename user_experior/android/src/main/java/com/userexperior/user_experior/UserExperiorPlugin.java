@@ -174,6 +174,26 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
         }
         break;
       }
+      case "endTimerWithProperties":
+        String timerNameWithProp = call.argument("timerName");
+        final HashMap<String, Object> timerProps = call.argument("properties");
+        if (timerNameWithProp == null || timerNameWithProp.length() == 0) {
+          throw new IllegalArgumentException("missing timer Name");
+        }
+        if (timerProps == null || timerProps.size() == 0) {
+          try {
+            UserExperior.endTimer(timerNameWithProp);
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        } else {
+          try {
+            UserExperior.endTimer(timerNameWithProp, timerProps);
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
+        break;
       /*case "setDeviceLocation":
         double latitude = call.argument("latitude");
         double longitude = call.argument("longitude");
