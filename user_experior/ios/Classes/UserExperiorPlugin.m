@@ -43,6 +43,13 @@
         NSString* timerName = call.arguments[@"timerName"];
         [UserExperior stopTimer:timerName];
     }
+    else if ([@"endTimerWithProperties" isEqualToString:call.method]) {
+        NSString* timerName = call.arguments[@"timerName"];
+        NSDictionary* properties = call.arguments[@"properties"];
+        if (timerName.length>0 && [properties isKindOfClass:NSDictionary.class]) {
+            [UserExperior stopTimer:timerName properties:properties];
+        }
+    }
     else if ([@"setUserIdentifier" isEqualToString:call.method]) {
         NSString* userIdentifier = call.arguments[@"userIdentifier"];
         [UserExperior setUserIdentifier:userIdentifier];
