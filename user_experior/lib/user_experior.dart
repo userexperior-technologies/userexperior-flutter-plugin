@@ -74,11 +74,11 @@ class UserExperior {
     await _channel.invokeMethod('endTimer', {"timerName": timerName});
   }
 
-  static Future<void> endTimerWithProperties(
-      String timerName, Map<String, dynamic> properties) async {
-    await _channel.invokeMethod('endTimerWithProperties',
-        {"timerName": timerName, "properties": properties});
-  }
+  // static Future<void> endTimerWithProperties(
+  //     String timerName, Map<String, dynamic> properties) async {
+  //   await _channel.invokeMethod('endTimerWithProperties',
+  //       {"timerName": timerName, "properties": properties});
+  // }
 
   static Future<void> setDeviceLocation(
       double latitude, double longitude) async {
