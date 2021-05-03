@@ -1,3 +1,6 @@
+## 1.1.22
+* Migrated to Maven Central from Bintray Jcenter, API Response Time Monitoring Enhancement
+
 ## 1.1.21
 * Big fixes and Rollback to last stable
 

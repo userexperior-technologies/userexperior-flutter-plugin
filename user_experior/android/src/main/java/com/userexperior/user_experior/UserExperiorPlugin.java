@@ -174,9 +174,9 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
         }
         break;
       }
-      /*case "endTimerWithProperties":
+      case "endTimerWithProperties":
         String timerNameWithProp = call.argument("timerName");
-        final HashMap<String, Object> timerProps = call.argument("properties");
+        final HashMap<String, String> timerProps = call.argument("properties");
         if (timerNameWithProp == null || timerNameWithProp.length() == 0) {
           throw new IllegalArgumentException("missing timer Name");
         }
@@ -193,7 +193,7 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
             e.printStackTrace();
           }
         }
-        break;*/
+        break;
       /*case "setDeviceLocation":
         double latitude = call.argument("latitude");
         double longitude = call.argument("longitude");
