@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'user_experior'
-  s.version          = '1.1.19'
+  s.version          = '1.1.23'
   s.summary          = 'Understand and fix user experience issues.'
   s.homepage         = 'https://www.userexperior.com/'
   s.license          = { :file => '../LICENSE' }
@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'UserExperior'
+  s.dependency 'UserExperior', '4.5.10'
   s.ios.deployment_target = '10.0'
 end
 

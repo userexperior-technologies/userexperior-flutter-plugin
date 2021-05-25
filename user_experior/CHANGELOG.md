@@ -1,3 +1,6 @@
+## 1.1.23
+* Updated iOS podspec dependency
+
 ## 1.1.22
 * Migrated to Maven Central from Bintray Jcenter, API Response Time Monitoring Enhancement
 
