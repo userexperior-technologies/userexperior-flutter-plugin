@@ -1,3 +1,6 @@
+## 1.1.24
+* Minor bug fixes
+
 ## 1.1.23
 * Updated iOS podspec dependency
 
