@@ -215,6 +215,10 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
       case "consent":
         UserExperior.consent();
         break;
+      case "isRecording":
+        result.success(UserExperior.isRecording());
+        break;
+
       default:
         result.notImplemented();
         break;
