@@ -102,4 +102,9 @@ class UserExperior {
   static Future<void> consent() async {
     await _channel.invokeMethod('consent');
   }
+
+  static Future<bool> isRecording() async {
+    final bool isRecording = await _channel.invokeMethod('isRecording');
+    return isRecording;
+  }
 }

@@ -100,10 +100,13 @@
         [UserExperior optOut];
     }
     else if ([@"getOptOutStatus"isEqualToString:call.method]) {
-        result(@( [UserExperior getOptOutStatus]));
+        result(@([UserExperior getOptOutStatus]));
     }
     else if ([@"consent"isEqualToString:call.method]) {
         [UserExperior consent];
+    }
+    else if ([@"isRecording"isEqualToString:call.method]) {
+        result(@([UserExperior isRecording]));
     }
     else {
         result(FlutterMethodNotImplemented);
