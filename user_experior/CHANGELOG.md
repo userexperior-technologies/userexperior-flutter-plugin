@@ -1,3 +1,6 @@
+## 1.1.25
+* Fixes SDK controlled recording
+
 ## 1.1.24
 * Minor bug fixes
 
