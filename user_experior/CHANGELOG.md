@@ -1,4 +1,4 @@
-## 2.0.0
+## 2.0.1
 * Fixes gesture handling mechanism for flutter
 * Improved the SDK performance
 * Removed setCustomTag (Use logEvent & logMessage instead)
