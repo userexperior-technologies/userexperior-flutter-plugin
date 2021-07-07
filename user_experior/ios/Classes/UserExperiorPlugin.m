@@ -20,7 +20,7 @@
     }
     else if ([@"startRecording" isEqualToString:call.method]) {
         NSString* ueVersionKey = call.arguments[@"ueVersionKey"];
-        [UserExperior initialize:ueVersionKey];
+        [UserExperior startRecordingWithVersionKey:ueVersionKey];
     }
     else if([@"stopRecording" isEqualToString:call.method]) {
         [UserExperior stopRecording];
@@ -33,21 +33,21 @@
     }
     else if ([@"startScreen" isEqualToString:call.method]) {
         NSString* screenName = call.arguments[@"screenName"];
-        [UserExperior startScreen:screenName];
+        [UserExperior startScreenWithName:screenName];
     }
     else if ([@"startTimer" isEqualToString:call.method]) {
         NSString* timerName = call.arguments[@"timerName"];
-        [UserExperior startTimer:timerName];
+        [UserExperior startScreenWithName:timerName];
     }
     else if ([@"endTimer" isEqualToString:call.method]) {
         NSString* timerName = call.arguments[@"timerName"];
-        [UserExperior stopTimer:timerName];
+        [UserExperior stopTimerWithName:timerName];
     }
     else if ([@"endTimerWithProperties" isEqualToString:call.method]) {
         NSString* timerName = call.arguments[@"timerName"];
         NSDictionary* properties = call.arguments[@"properties"];
         if (timerName.length>0 && [properties isKindOfClass:NSDictionary.class]) {
-            [UserExperior stopTimer:timerName properties:properties];
+            [UserExperior stopTimerWithName:timerName properties:properties];
         }
     }
     else if ([@"setUserIdentifier" isEqualToString:call.method]) {
@@ -63,47 +63,40 @@
     else if ([@"logEvent" isEqualToString:call.method]) {
         NSString* eventName = call.arguments[@"eventName"];
         if (eventName.length>0) {
-            [UserExperior logEvent:eventName];
+            [UserExperior logEventWithName:eventName];
         }
     }
     else if ([@"logEventWithProperties" isEqualToString:call.method]) {
         NSString* eventName = call.arguments[@"eventName"];
         NSDictionary* properties = call.arguments[@"properties"];
         if (eventName.length>0 && [properties isKindOfClass:NSDictionary.class]) {
-            [UserExperior logEvent:eventName properties:properties];
+            [UserExperior logEventWithName:eventName properties:properties];
         }
     }
     else if ([@"logMessage" isEqualToString:call.method]) {
         NSString* messageName = call.arguments[@"messageName"];
         if (messageName.length>0) {
-            [UserExperior logMessage:messageName];
+            [UserExperior logMessageWithName:messageName];
         }
     }
     else if ([@"logMessageWithProperties" isEqualToString:call.method]) {
         NSString* messageName = call.arguments[@"messageName"];
         NSDictionary* properties = call.arguments[@"properties"];
         if (messageName.length>0 && [properties isKindOfClass:NSDictionary.class]) {
-            [UserExperior logMessage:messageName properties:properties];
-        }
-    }
-    else if ([@"setCustomTag" isEqualToString:call.method]) {
-        NSString* customTag = call.arguments[@"customTag"];
-        NSString* customType = call.arguments[@"customType"];
-        if (customTag.length>0 && customType.length>0) {
-            [UserExperior setCustomTagWithString:customTag customType:customType];
+            [UserExperior logMessageWithName:messageName properties:properties];
         }
     }
     else if ([@"optIn" isEqualToString:call.method]) {
-        [UserExperior optIn];
+        [UserExperior consentOptIn];
     }
     else if ([@"optOut" isEqualToString:call.method]) {
-        [UserExperior optOut];
+        [UserExperior consentOptOut];
     }
     else if ([@"getOptOutStatus"isEqualToString:call.method]) {
-        result(@([UserExperior getOptOutStatus]));
+        result(@([UserExperior consentState]));
     }
     else if ([@"consent"isEqualToString:call.method]) {
-        [UserExperior consent];
+        [UserExperior displayConsentRequest];
     }
     else if ([@"isRecording"isEqualToString:call.method]) {
         result(@([UserExperior isRecording]));

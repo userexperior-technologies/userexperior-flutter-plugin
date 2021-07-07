@@ -57,11 +57,6 @@ class UserExperior {
         {"messageName": messageName, "properties": properties});
   }
 
-  static Future<void> setCustomTag(String customTag, String customType) async {
-    await _channel.invokeMethod(
-        'setCustomTag', {"customTag": customTag, "customType": customType});
-  }
-
   static Future<void> startScreen(String screenName) async {
     await _channel.invokeMethod('startScreen', {"screenName": screenName});
   }
