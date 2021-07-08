@@ -1,3 +1,6 @@
+## 2.0.3
+* Minor bug fixes
+
 ## 2.0.2
 * Fixes gesture handling mechanism for flutter
 * Improved the SDK performance
@@ -68,4 +71,4 @@
 * Performance improvement
 
 ## 1.1.3
-* Added support recent flutter version 
+* Added support recent flutter version
