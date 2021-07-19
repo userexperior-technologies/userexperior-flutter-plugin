@@ -43,7 +43,7 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
         String ueVersionKey = call.argument("ueVersionKey");
         try {
             if (activity != null) {
-                UserExperior.startRecording(activity.getApplicationContext(), ueVersionKey);
+                UserExperior.startRecording(activity.getApplicationContext(), ueVersionKey, "flutter");
             }
         } catch (Exception e) {
             e.printStackTrace();

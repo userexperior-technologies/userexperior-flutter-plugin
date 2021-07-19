@@ -1,3 +1,6 @@
+# 2.0.4
+* Android Optimizations, ANR Type added
+
 ## 2.0.3
 * Minor bug fixes
 
