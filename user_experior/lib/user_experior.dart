@@ -5,8 +5,8 @@ import 'package:flutter/services.dart';
 class UserExperior {
   static const MethodChannel _channel = const MethodChannel('user_experior');
 
-  static Future<String> get platformVersion async {
-    final String version = await _channel.invokeMethod('getPlatformVersion');
+  static Future<String?> get platformVersion async {
+    final String? version = await _channel.invokeMethod('getPlatformVersion');
     return version;
   }
 
@@ -89,8 +89,8 @@ class UserExperior {
     await _channel.invokeMethod('optIn');
   }
 
-  static Future<bool> getOptOutStatus() async {
-    final bool optOutStatus = await _channel.invokeMethod('getOptOutStatus');
+  static Future<bool?> getOptOutStatus() async {
+    final bool? optOutStatus = await _channel.invokeMethod('getOptOutStatus');
     return optOutStatus;
   }
 
@@ -98,8 +98,8 @@ class UserExperior {
     await _channel.invokeMethod('consent');
   }
 
-  static Future<bool> isRecording() async {
-    final bool isRecording = await _channel.invokeMethod('isRecording');
+  static Future<bool?> isRecording() async {
+    final bool? isRecording = await _channel.invokeMethod('isRecording');
     return isRecording;
   }
 }
