@@ -1,3 +1,6 @@
+# 2.0.5
+* Fixes UIWebView issue
+
 # 2.0.4
 * Android Optimizations, ANR Type added
 

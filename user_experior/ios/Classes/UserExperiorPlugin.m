@@ -93,7 +93,7 @@
         [UserExperior consentOptOut];
     }
     else if ([@"getOptOutStatus"isEqualToString:call.method]) {
-        result(@([UserExperior getConsentState]));
+        result(@([UserExperior getOptOutStatus]));
     }
     else if ([@"consent"isEqualToString:call.method]) {
         [UserExperior displayConsentRequest];
