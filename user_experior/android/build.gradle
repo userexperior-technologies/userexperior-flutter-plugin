@@ -4,18 +4,18 @@ version '1.0'
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.android.tools.build:gradle:3.5.4'
     }
 }
 
 rootProject.allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
         //Add this below <plugin_name> is whatever your plugin is called eg. url_launcher
         flatDir {
             dirs project(':user_experior').file('libs')
@@ -29,7 +29,7 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
 
     defaultConfig {
         minSdkVersion 16
@@ -41,6 +41,6 @@ android {
 }
 
 dependencies {
-    implementation 'com.userexperior:userexperior-android:6.0.7'
-    //implementation(name: 'userexperiorsdk-flutter-29july-437', ext: 'aar')
+    implementation 'com.userexperior:userexperior-android:6.0.9'
+    //implementation(name: 'userexperiorsdk-flutter-test-548', ext: 'aar')
 }

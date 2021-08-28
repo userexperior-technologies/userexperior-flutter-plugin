@@ -1,3 +1,6 @@
+#2.0.6
+* Optimized android sdk for flutter
+
 # 2.0.5
 * Fixes web view issue
 
