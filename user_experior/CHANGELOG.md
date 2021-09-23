@@ -1,4 +1,7 @@
-#2.0.6
+# 2.0.7
+* Implemented App Launch Type and its latency
+
+# 2.0.6
 * Optimized android sdk for flutter
 
 # 2.0.5
