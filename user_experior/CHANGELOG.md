@@ -1,3 +1,6 @@
+# 2.0.8
+* Rule based recording for App launch time
+
 # 2.0.7
 * Implemented App Launch Type and its latency
 
