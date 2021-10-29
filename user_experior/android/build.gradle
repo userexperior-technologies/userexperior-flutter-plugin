@@ -45,7 +45,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.userexperior:userexperior-android:7.0.1'
+    implementation 'com.userexperior:userexperior-android:7.0.2'
     //implementation 'com.userexperior:userexperior-android:1.8.0-SNAPSHOT'
     //implementation(name: 'userexperiorsdk-flutter-test-548', ext: 'aar')
 }

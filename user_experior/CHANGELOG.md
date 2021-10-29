@@ -1,3 +1,6 @@
+# 2.0.9
+* SDK Optimizations and Enhancement
+
 # 2.0.8
 * Rule based recording for App launch time
 
