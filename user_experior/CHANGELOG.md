@@ -1,3 +1,6 @@
+# 2.1.0
+* App Launch Optimizations and Enhancement
+
 # 2.0.9
 * SDK Optimizations and Enhancement
 
