@@ -1,3 +1,6 @@
+# 2.1.1
+* Added support for Unsound null safety
+
 # 2.1.0
 * App Launch Optimizations and Enhancement
 
