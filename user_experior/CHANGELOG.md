@@ -1,3 +1,6 @@
+# 2.1.2
+* Minor bug fixes
+
 # 2.1.1
 * Added support for Unsound null safety
 
