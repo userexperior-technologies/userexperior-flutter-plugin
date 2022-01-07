@@ -102,4 +102,8 @@ class UserExperior {
     final bool? isRecording = await _channel.invokeMethod('isRecording');
     return isRecording;
   }
+
+  //static Future<void> activateThirdPartyAnalyticsMonitor() async {
+    //await _channel.invokeMethod('activateThirdPartyAnalyticsMonitor');
+  //}
 }

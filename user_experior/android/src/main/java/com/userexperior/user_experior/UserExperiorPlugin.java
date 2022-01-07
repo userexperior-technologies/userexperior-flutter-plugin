@@ -218,6 +218,9 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
       case "isRecording":
         result.success(UserExperior.isRecording());
         break;
+      //case "activateThirdPartyAnalyticsMonitor":
+        //UserExperior.activateThirdPartyAnalyticsMonitor();
+        //break;
 
       default:
         result.notImplemented();
