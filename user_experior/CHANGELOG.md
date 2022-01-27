@@ -1,3 +1,6 @@
+# 2.1.4
+* Error handling
+
 # 2.1.3
 * Minor bug fixes
 
