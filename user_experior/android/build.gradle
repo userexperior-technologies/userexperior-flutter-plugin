@@ -33,7 +33,7 @@ rootProject.allprojects {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     defaultConfig {
         minSdkVersion 16
@@ -45,7 +45,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.userexperior:userexperior-android:7.0.5'
+    implementation 'com.userexperior:userexperior-android:7.0.6'
     //implementation 'com.userexperior:userexperior-android:1.8.0-SNAPSHOT'
     //implementation(name: 'userexperiorsdk-blank-ss-fix', ext: 'aar')
 }

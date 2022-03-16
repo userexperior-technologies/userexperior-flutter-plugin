@@ -1,3 +1,6 @@
+# 2.1.5
+* Android 12 Support
+
 # 2.1.4
 * Error handling
 
