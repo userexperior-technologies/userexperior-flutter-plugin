@@ -20,7 +20,9 @@
     }
     else if ([@"startRecording" isEqualToString:call.method]) {
         NSString* ueVersionKey = call.arguments[@"ueVersionKey"];
-        [UserExperior startRecordingWithVersionKey:ueVersionKey];
+        NSString* fw = call.arguments[@"fw"];
+        NSString* sv = call.arguments[@"sv"];
+        [UserExperior startRecordingWithVersionKey:ueVersionKey fw:fw sv:sv];
     }
     else if([@"stopRecording" isEqualToString:call.method]) {
         [UserExperior stopRecording];
