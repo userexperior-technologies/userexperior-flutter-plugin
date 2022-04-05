@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 
 class UserExperior {
+  static final fw = "fr";
+  static final sv = "2.1.6";
+
   static const MethodChannel _channel = const MethodChannel('user_experior');
 
   static Future<String?> get platformVersion async {
@@ -11,8 +14,8 @@ class UserExperior {
   }
 
   static void startRecording(String ueVersionKey) async {
-    await _channel
-        .invokeMethod('startRecording', {"ueVersionKey": ueVersionKey});
+    await _channel.invokeMethod(
+        'startRecording', {"ueVersionKey": ueVersionKey, "fw": fw, "sv": sv});
   }
 
   static Future<void> stopRecording() async {
@@ -104,6 +107,6 @@ class UserExperior {
   }
 
   //static Future<void> activateThirdPartyAnalyticsMonitor() async {
-    //await _channel.invokeMethod('activateThirdPartyAnalyticsMonitor');
+  //await _channel.invokeMethod('activateThirdPartyAnalyticsMonitor');
   //}
 }
