@@ -1,3 +1,6 @@
+# 2.1.6
+* SDK Optimisation
+
 # 2.1.5
 * Android 12 Support
 

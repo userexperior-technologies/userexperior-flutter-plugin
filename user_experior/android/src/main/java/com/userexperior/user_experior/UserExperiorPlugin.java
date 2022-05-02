@@ -41,9 +41,11 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
         break;
       case "startRecording":
         String ueVersionKey = call.argument("ueVersionKey");
+        String fw = call.argument("fw");
+        String sv = call.argument("sv");
         try {
             if (activity != null) {
-                UserExperior.startRecording(activity.getApplicationContext(), ueVersionKey, "flutter");
+                UserExperior.startRecording(activity.getApplicationContext(), ueVersionKey, fw, sv);
             }
         } catch (Exception e) {
             e.printStackTrace();
