@@ -68,6 +68,12 @@ class UserExperior {
     await _channel.invokeMethod('startTimer', {"timerName": timerName});
   }
 
+  static Future<void> startTimerWithProperties(
+      String timerName, Map<String, dynamic> properties) async {
+    await _channel.invokeMethod('startTimerWithProperties',
+        {"timerName": timerName, "properties": properties});
+  }
+
   static Future<void> endTimer(String timerName) async {
     await _channel.invokeMethod('endTimer', {"timerName": timerName});
   }

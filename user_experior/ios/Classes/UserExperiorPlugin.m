@@ -41,6 +41,13 @@
         NSString* timerName = call.arguments[@"timerName"];
         [UserExperior startScreenWithName:timerName];
     }
+    else if ([@"startTimerWithProperties" isEqualToString:call.method]) {
+        NSString* timerName = call.arguments[@"timerName"];
+        NSDictionary* properties = call.arguments[@"properties"];
+        if (timerName.length>0 && [properties isKindOfClass:NSDictionary.class]) {
+            [UserExperior startTimerWithName:timerName properties:properties];
+        }
+    }
     else if ([@"endTimer" isEqualToString:call.method]) {
         NSString* timerName = call.arguments[@"timerName"];
         [UserExperior stopTimerWithName:timerName];
