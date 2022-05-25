@@ -167,6 +167,28 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
         }
         break;
       }
+
+      case "startTimerWithProperties":
+        String timerNameWithProp = call.argument("timerName");
+        final HashMap<String, String> timerProps = call.argument("properties");
+        if (timerNameWithProp == null || timerNameWithProp.length() == 0) {
+          throw new IllegalArgumentException("missing timer Name");
+        }
+        if (timerProps == null || timerProps.size() == 0) {
+          try {
+            UserExperior.startTimer(timerNameWithProp);
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        } else {
+          try {
+            UserExperior.startTimer(timerNameWithProp, timerProps);
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
+        break;
+
       case "endTimer": {
         String timerName = call.argument("timerName");
         try {

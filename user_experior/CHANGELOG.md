@@ -1,3 +1,6 @@
+# 2.1.7
+* API/Screen Response Time Enhancement
+
 # 2.1.6
 * SDK Optimisation
 
