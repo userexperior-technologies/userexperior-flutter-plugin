@@ -1,3 +1,6 @@
+# 2.1.8 
+* Minor bug fix
+
 # 2.1.7
 * API/Screen Response Time Enhancement
 
