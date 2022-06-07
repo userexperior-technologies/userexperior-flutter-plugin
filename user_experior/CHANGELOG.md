@@ -1,3 +1,6 @@
+# 2.1.9
+* Android 12.1 support added
+
 # 2.1.8 
 * Minor bug fix
 
