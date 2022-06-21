@@ -1,3 +1,6 @@
+# 2.2.0
+* API Request, Response feature enhancement
+
 # 2.1.9
 * Android 12.1 support added
 
