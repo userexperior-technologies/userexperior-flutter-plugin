@@ -1,3 +1,6 @@
+# 2.2.1
+* Android Bug fixes
+
 # 2.2.0
 * API Request, Response feature enhancement
 
