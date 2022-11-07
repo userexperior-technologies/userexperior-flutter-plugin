@@ -237,9 +237,6 @@ public class UserExperiorPlugin implements MethodCallHandler, FlutterPlugin, Act
       case "getOptOutStatus":
         result.success(UserExperior.getOptOutStatus());
         break;
-      case "consent":
-        UserExperior.consent();
-        break;
       case "isRecording":
         result.success(UserExperior.isRecording());
         break;

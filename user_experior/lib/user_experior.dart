@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 class UserExperior {
   static final fw = "fr";
-  static final sv = "2.2.1";
+  static final sv = "2.2.2";
 
   static const MethodChannel _channel = const MethodChannel('user_experior');
 
@@ -101,10 +101,6 @@ class UserExperior {
   static Future<bool?> getOptOutStatus() async {
     final bool? optOutStatus = await _channel.invokeMethod('getOptOutStatus');
     return optOutStatus;
-  }
-
-  static Future<void> consent() async {
-    await _channel.invokeMethod('consent');
   }
 
   static Future<bool?> isRecording() async {

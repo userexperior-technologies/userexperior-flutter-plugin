@@ -1,3 +1,6 @@
+# 2.2.2
+* Android 13 Support added, AndroidX support added
+
 # 2.2.1
 * Android Bug fixes
 
