@@ -1,3 +1,6 @@
+# 2.2.3
+* Minor bug fixes for the iOS platform
+
 # 2.2.2
 * Android 13 Support added, AndroidX support added
 
