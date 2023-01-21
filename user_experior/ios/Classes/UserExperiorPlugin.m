@@ -104,9 +104,6 @@
     else if ([@"getOptOutStatus"isEqualToString:call.method]) {
         result(@([UserExperior getOptOutStatus]));
     }
-    else if ([@"consent"isEqualToString:call.method]) {
-        [UserExperior displayConsentRequest];
-    }
     else if ([@"isRecording"isEqualToString:call.method]) {
         result(@([UserExperior isRecording]));
     }

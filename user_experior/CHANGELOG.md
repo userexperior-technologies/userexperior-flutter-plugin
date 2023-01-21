@@ -1,3 +1,6 @@
+# 2.3.0
+* Multiple Custom Recording Rules
+
 # 2.2.3
 * Minor bug fixes for the iOS platform
 
