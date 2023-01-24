@@ -1,3 +1,6 @@
+# 2.3.1
+* Bug Fixes
+
 # 2.3.0
 * Multiple Custom Recording Rules
 
