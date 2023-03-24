@@ -1,5 +1,5 @@
-# 2.3.1
-* Minor Bug Fixes
+# 2.3.2
+* Encryption optimizations
 
 # 2.3.1
 * Bug Fixes
