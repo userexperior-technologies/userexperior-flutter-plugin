@@ -1,4 +1,7 @@
 # 2.3.1
+* Minor Bug Fixes
+
+# 2.3.1
 * Bug Fixes
 
 # 2.3.0
