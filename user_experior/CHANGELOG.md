@@ -1,3 +1,6 @@
+# 3.0.0
+* Added Webview masking capabilities
+
 # 2.3.2
 * Encryption optimizations
 
