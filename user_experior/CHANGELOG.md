@@ -1,3 +1,6 @@
+# 3.0.1
+* Added Webview masking capabilities
+
 # 3.0.0
 * Added Webview masking capabilities
 
