@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 class UserExperior {
   static final fw = "fr";
-  static final sv = "3.0.1";
+  static final sv = "3.0.2";
 
   static const MethodChannel _channel = const MethodChannel('user_experior');
 
