@@ -1,3 +1,6 @@
+# 3.0.3
+* Minor bug fixes, and optimizations
+
 # 3.0.2
 * Minor bug fixes
 
