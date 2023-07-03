@@ -1,3 +1,6 @@
+# 3.1.1
+* Minor bug fixes
+
 # 3.1.0
 * Security level enhancement
 
