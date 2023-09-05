@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'user_experior'
-  s.version          = '4.0.0'
+  s.version          = '4.0.1'
   s.summary          = 'Understand and fix user experience issues.'
   s.homepage         = 'https://www.userexperior.com/'
   s.license          = { :file => '../LICENSE' }

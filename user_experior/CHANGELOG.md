@@ -1,3 +1,6 @@
+# 4.0.1
+* Minor Build Issue fix
+
 # 4.0.0
 * R8 Implementation, SDK Event Capturing Architecture changed, Optimzations and Bug fixes
 
