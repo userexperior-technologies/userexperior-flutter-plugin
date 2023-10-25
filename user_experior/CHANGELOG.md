@@ -1,3 +1,6 @@
+# 4.0.2
+* Minor Bug fixes
+
 # 4.0.1
 * Minor Build Issue fix
 
