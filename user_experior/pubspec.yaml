@@ -1,11 +1,11 @@
 name: user_experior
 description: Understand and fix user experience issues.
-version: 4.0.2
+version: 4.0.3
 # author: Vimlesh Gautam<vimlesh@userexperior.com>
 homepage: https://www.userexperior.com/
 
 environment:
-  sdk: '>=2.12.0 <3.0.0'
+  sdk: '>=2.12.0 <4.0.0'
 
   # Flutter versions prior to 1.12 did not support the
   # flutter.plugin.platforms map.
