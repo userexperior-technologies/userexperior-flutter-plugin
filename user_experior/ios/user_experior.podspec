@@ -3,7 +3,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'user_experior'
-  s.version          = '4.0.1'
+  s.version          = '4.0.4'
   s.summary          = 'Understand and fix user experience issues.'
   s.homepage         = 'https://www.userexperior.com/'
   s.license          = { :file => '../LICENSE' }
@@ -12,8 +12,8 @@ Pod::Spec.new do |s|
   s.source_files = 'Classes/**/*'
   s.public_header_files = 'Classes/**/*.h'
   s.dependency 'Flutter'
-  s.dependency 'UserExperior', '6.0.1'
-  s.ios.deployment_target = '10.0'
+  s.dependency 'UserExperior', '6.0.4'
+  s.ios.deployment_target = '12.0'
   s.user_target_xcconfig    = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
   s.pod_target_xcconfig     = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
 end

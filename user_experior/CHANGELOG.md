@@ -1,3 +1,6 @@
+# 4.0.4
+* Minor Bug fixes
+
 # 4.0.3
 * Minor Bug fixes
 
