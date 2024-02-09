@@ -2,9 +2,6 @@
 @import UserExperiorSDK;
 
 @implementation UserExperiorPlugin
-//+ (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  //[SwiftUserExperiorPlugin registerWithRegistrar:registrar];
-//}
 
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
     FlutterMethodChannel* channel = [FlutterMethodChannel
@@ -50,13 +47,13 @@
     }
     else if ([@"endTimer" isEqualToString:call.method]) {
         NSString* timerName = call.arguments[@"timerName"];
-        [UserExperior stopTimerWithName:timerName];
+        [UserExperior endTimerWithName:timerName];
     }
     else if ([@"endTimerWithProperties" isEqualToString:call.method]) {
         NSString* timerName = call.arguments[@"timerName"];
         NSDictionary* properties = call.arguments[@"properties"];
         if (timerName.length>0 && [properties isKindOfClass:NSDictionary.class]) {
-            [UserExperior stopTimerWithName:timerName properties:properties];
+            [UserExperior endTimerWithName:timerName properties:properties];
         }
     }
     else if ([@"setUserIdentifier" isEqualToString:call.method]) {
