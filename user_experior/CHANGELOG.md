@@ -1,3 +1,6 @@
+# 4.1.1
+* Added Android 14 Support, Minor Bug Fixes
+
 # 4.1.0
 * Minor Bug fixes
 
