@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 
 class UserExperior {
   static final fw = "fr";
-  static final sv = "4.1.2"; // SDK/Plugin version
+  static final sv = "4.1.3"; // SDK/Plugin version
 
   static const MethodChannel _channel = const MethodChannel('user_experior');
 
