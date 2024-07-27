@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:user_experior/user_experior.dart';
 import 'package:user_experior_example/flows/ui_utility/screen_login/provider/login_provider.dart';
 import 'package:user_experior_example/utilities/app_assets.dart';
 import 'package:user_experior_example/utilities/styles/text_styles.dart';
@@ -61,7 +62,7 @@ class LoginScreen extends StatelessWidget {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextField(
+          UEMarker(child: TextField(
             controller: provider.emailController,
             decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -71,9 +72,9 @@ class LoginScreen extends StatelessWidget {
             onChanged: (_) {
               provider.setIsError(false);
             },
-          ),
+          )),
           const SizedBox(height: 15),
-          TextField(
+          UEMarker(child: TextField(
             controller: provider.passwordController,
             obscureText: true,
             decoration: InputDecoration(
@@ -84,7 +85,7 @@ class LoginScreen extends StatelessWidget {
             onChanged: (_) {
               provider.setIsError(false);
             },
-          ),
+          )),
           if (provider.isError) _loginError(),
         ],
       );

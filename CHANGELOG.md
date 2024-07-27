@@ -1,3 +1,2 @@
-## 0.0.1
-
-* TODO: Describe initial release.
+# 5.0.0
+* Implemented Masking Support

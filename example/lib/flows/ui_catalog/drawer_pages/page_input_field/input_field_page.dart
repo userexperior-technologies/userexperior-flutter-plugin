@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:user_experior/user_experior.dart';
 import 'package:user_experior_example/flows/ui_catalog/drawer_pages/page_input_field/input_field_provider/input_field_provider.dart';
 import 'package:user_experior_example/utilities/styles/text_styles.dart';
 
@@ -43,14 +44,14 @@ class InputFieldPage extends StatelessWidget {
     return Consumer<InputFieldProvider>(builder: (context, provider, child) {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 20.0),
-        child: TextField(
+        child: UEMarker(child: TextField(
           controller: provider.fieldController,
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
             labelText: 'Name',
           ),
         ),
-      );
+      ));
     });
   }
 
