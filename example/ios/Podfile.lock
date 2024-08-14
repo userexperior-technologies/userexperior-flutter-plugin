@@ -15,8 +15,8 @@ PODS:
   - UECrashReporter (1.0.6)
   - user_experior (5.0.0):
     - Flutter
-    - UserExperior (= 6.0.7)
-  - UserExperior (6.0.7):
+    - UserExperior (= 6.0.8)
+  - UserExperior (6.0.8):
     - UECrashReporter (~> 1.0.6)
   - video_player_avfoundation (0.0.1):
     - Flutter
@@ -66,11 +66,11 @@ SPEC CHECKSUMS:
   sqflite: 673a0e54cc04b7d6dba8d24fb8095b31c3a99eec
   Toast: 1f5ea13423a1e6674c4abdac5be53587ae481c4e
   UECrashReporter: 34ab29aecdf7a8bf432eca0958797960386ec71e
-  user_experior: 4500893a3b297e24463069813536905ab7c9a02e
-  UserExperior: 3f036b249d9e0f45df6cea345ca426ea746043e5
+  user_experior: 7635c490efa4baa78f7409b356f9a37eef76af49
+  UserExperior: ef96aa1329949c7e088748c13d498fb5c9a54e33
   video_player_avfoundation: 7c6c11d8470e1675df7397027218274b6d2360b3
   webview_flutter_wkwebview: be0f0d33777f1bfd0c9fdcb594786704dbf65f36
 
-PODFILE CHECKSUM: 819463e6a0290f5a72f145ba7cde16e8b6ef0796
+PODFILE CHECKSUM: 7be2f5f74864d463a8ad433546ed1de7e0f29aef
 
 COCOAPODS: 1.15.2
