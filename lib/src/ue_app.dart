@@ -28,7 +28,6 @@ class UEMonitoredApp extends MaterialApp {
       InitialRouteListFactory? onGenerateInitialRoutes,
       RouteFactory? onUnknownRoute,
       List<NavigatorObserver> navigatorObservers = const <NavigatorObserver>[],
-      super.onNavigationNotification,
       super.builder,
       super.title,
       super.onGenerateTitle,
@@ -55,8 +54,7 @@ class UEMonitoredApp extends MaterialApp {
       super.actions,
       super.restorationScopeId,
       super.scrollBehavior,
-      bool useInheritedMediaQuery = false,
-      super.themeAnimationStyle})
+      bool useInheritedMediaQuery = false})
       : super(
           initialRoute: () {
             _onPreNavigation();

@@ -13,9 +13,9 @@ class AnimationsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Expanded(
+        Expanded(
           child: Stack(
-            children: [
+            children: const [
               SizedBox(
                 height: double.maxFinite,
                 width: double.maxFinite,

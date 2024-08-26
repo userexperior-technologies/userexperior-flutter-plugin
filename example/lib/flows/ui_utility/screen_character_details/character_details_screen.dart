@@ -121,10 +121,10 @@ class CharacterDetailsScreen extends StatelessWidget {
           }
         },
         style: ButtonStyle(
-            padding: const WidgetStatePropertyAll(EdgeInsets.all(14)),
-            shape: WidgetStatePropertyAll(RoundedRectangleBorder(
+            padding: const MaterialStatePropertyAll(EdgeInsets.all(14)),
+            shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(15))),
-            backgroundColor: const WidgetStatePropertyAll(Colors.amber)),
+            backgroundColor: const MaterialStatePropertyAll(Colors.amber)),
         child: const Text('Submit', style: TextStyle(fontSize: 20)),
       ),
     );
