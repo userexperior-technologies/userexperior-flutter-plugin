@@ -52,7 +52,7 @@ Widget _sheetButton(BuildContext context, String title, Function onClick) {
     width: MediaQuery.of(context).size.width * 0.8,
     child: ElevatedButton(
       style: const ButtonStyle(
-          side: WidgetStatePropertyAll(
+          side: MaterialStatePropertyAll(
               BorderSide(color: Colors.lightGreen, width: 1))),
       onPressed: () => onClick(),
       child: Text(title, style: buttonStyle),

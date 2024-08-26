@@ -63,9 +63,9 @@ class InputFieldPage extends StatelessWidget {
             onClick();
           },
           style: ButtonStyle(
-              padding: const WidgetStatePropertyAll(EdgeInsets.all(15)),
-              backgroundColor: WidgetStatePropertyAll(color),
-              shape: WidgetStatePropertyAll(RoundedRectangleBorder(
+              padding: const MaterialStatePropertyAll(EdgeInsets.all(15)),
+              backgroundColor: MaterialStatePropertyAll(color),
+              shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)))),
           child: Text(text, style: buttonStyle)),
     );
