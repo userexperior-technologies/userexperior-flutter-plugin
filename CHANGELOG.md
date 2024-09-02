@@ -1,3 +1,6 @@
+# 5.0.2
+* Fixed compatibility issue of Dart SDK with client apps
+
 # 5.0.1
 * Minor VAPT changes
 
