@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:user_experior/user_experior.dart';
 import 'package:user_experior_example/characters/data/models/character.dart';
 import 'package:user_experior_example/characters/provider/characters_provider.dart';
 import 'package:user_experior_example/flows/ui_utility/provider/character_details_provider.dart';
@@ -75,9 +76,9 @@ class CharacterDetailsScreen extends StatelessWidget {
             const Text('To chat with the character, fill in the form:',
                 style: labelHeaderStyle),
             const SizedBox(height: 15),
-            _chatTextField(context, provider.nameController, 'Name'),
+            UEMarker(child: _chatTextField(context, provider.nameController, 'Name')),
             const SizedBox(height: 15),
-            _chatTextField(context, provider.topicController, 'Topic'),
+            UEMarker(child: _chatTextField(context, provider.topicController, 'Topic')),
             if (provider.isError) _formError(),
             const SizedBox(height: 15),
             _submitButton(context),
