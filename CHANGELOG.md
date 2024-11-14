@@ -1,3 +1,6 @@
+# 5.0.4
+* Minore Bug Fixes
+
 # 5.0.3
 * Minore Bug Fixes
 
