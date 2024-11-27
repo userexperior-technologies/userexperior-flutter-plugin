@@ -1,3 +1,6 @@
+# 5.0.5
+* Minor Bug Fixes, Performance improvement and optimisations
+
 # 5.0.4
 * Minore Bug Fixes
 
