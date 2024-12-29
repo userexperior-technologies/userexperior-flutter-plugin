@@ -55,8 +55,13 @@ public class UserExperiorSDKPlugin : NSObject, UEPlatformPluginInterface
         DispatchQueue.main.async {
             
             channel.invokeMethod("getMarkerLocations", arguments: "arg") { (result) in
-               
-                guard let locations = result as? Array<Dictionary<String, String>> else {
+                
+                guard let payload = result as? [String: Any] else {
+                    print( "Error occurred on MaskedLocations, please submit a bug. Or check that you have added UEMarker Widget to your application")
+                    return
+                }
+                
+                guard let locations = payload["locations"] as? Array<Dictionary<String, String>> else {
                     print( "Error occurred on MaskedLocations, please submit a bug. Or check that you have added UEMarker Widget to your application")
                     return
                 }
