@@ -55,6 +55,8 @@ class MethodChannelUserExperior extends UserExperiorPlatform {
           payload['image'] = _screenshotImage;
         }
 
+        payload['wireframe'] = "";
+
         return payload;
       default:
         return null;
@@ -88,6 +90,7 @@ class MethodChannelUserExperior extends UserExperiorPlatform {
       "fw": UserExperior.fw,
       "sv": UserExperior.sv
     });
+
     if (Platform.isAndroid) {
       callback(image) async {
         ByteData? byteData =

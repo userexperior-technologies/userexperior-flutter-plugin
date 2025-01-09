@@ -9,9 +9,9 @@ import UserExperiorSDK
 import Flutter
 
 class UEPlatformPluginView {
-    private var locations: [String: UEPlatformMask]
-    private var encodedImage: Data
-    private var wireframe: String
+    internal var locations: [String: UEPlatformMask]
+    internal var encodedImage: Data
+    internal var wireframe: String
 
     // Default initializer
     convenience init() {
@@ -24,33 +24,6 @@ class UEPlatformPluginView {
         self.encodedImage = image
         self.wireframe = wireframe
     }
-
-    // Getter and Setter for locations
-    func getLocations() -> [String: UEPlatformMask] {
-        return locations
-    }
-
-    func setLocations(_ locations: [String: UEPlatformMask]) {
-        self.locations = locations
-    }
-
-    // Getter and Setter for encodedImage
-    func getEncodedImage() -> Data {
-        return encodedImage
-    }
-
-    func setEncodedImage(_ image: Data) {
-        self.encodedImage = image
-    }
-
-    // Getter and Setter for wireframe
-    func getWireframe() -> String {
-        return wireframe
-    }
-
-    func setWireframe(_ wireframe: String) {
-        self.wireframe = wireframe
-    }
 }
 
 public class UserExperiorSDKPlugin : NSObject, UEPlatformPluginInterface
@@ -58,7 +31,7 @@ public class UserExperiorSDKPlugin : NSObject, UEPlatformPluginInterface
     // MARK: - Attributes
     private  var recordingAllowed : Bool
     internal var methodChannel    : FlutterMethodChannel
-    internal var platformMasks    : [String:UEPlatformMask]
+    internal var pluginView       : UEPlatformPluginView
     internal var isDebugMode      : Bool
 
     // MARK: - Constructors
@@ -66,7 +39,7 @@ public class UserExperiorSDKPlugin : NSObject, UEPlatformPluginInterface
     {
         self.recordingAllowed = recordingAllowed
         self.methodChannel = channel
-        self.platformMasks = [String:UEPlatformMask]()
+        self.pluginView    = UEPlatformPluginView()
         self.isDebugMode   = false
         super.init()
     }
@@ -111,11 +84,11 @@ public class UserExperiorSDKPlugin : NSObject, UEPlatformPluginInterface
                     return
                 }
                 
-                self.platformMasks.removeAll(keepingCapacity: true)
+                self.pluginView.locations.removeAll(keepingCapacity: true)
                
                 for location in locations {
                     guard let mask = UEPlatformMask(location) else { continue }
-                    self.platformMasks[mask.identifier] = mask
+                    self.pluginView.locations[mask.identifier] = mask
                 }
                 
                 if (self.isDebugMode)
@@ -127,6 +100,6 @@ public class UserExperiorSDKPlugin : NSObject, UEPlatformPluginInterface
                 }
             }
         }
-        return platformMasks.compactMap { $0.value }
+        return pluginView.locations.compactMap { $0.value }
     }
 }
