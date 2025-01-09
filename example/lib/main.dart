@@ -15,6 +15,7 @@ final RouteObserver<PageRoute> routeObserver = RouteObserver<PageRoute>();
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  UserExperior.ensureInitialized();
 
   configureDependencies();
 

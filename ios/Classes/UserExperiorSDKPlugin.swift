@@ -8,6 +8,51 @@ import Foundation
 import UserExperiorSDK
 import Flutter
 
+class UEPlatformPluginView {
+    private var locations: [String: UEPlatformMask]
+    private var encodedImage: Data
+    private var wireframe: String
+
+    // Default initializer
+    convenience init() {
+        self.init(locations: [:], image: Data(), wireframe: "")
+    }
+
+    // Custom initializer
+    init(locations: [String: UEPlatformMask], image: Data, wireframe: String) {
+        self.locations = locations
+        self.encodedImage = image
+        self.wireframe = wireframe
+    }
+
+    // Getter and Setter for locations
+    func getLocations() -> [String: UEPlatformMask] {
+        return locations
+    }
+
+    func setLocations(_ locations: [String: UEPlatformMask]) {
+        self.locations = locations
+    }
+
+    // Getter and Setter for encodedImage
+    func getEncodedImage() -> Data {
+        return encodedImage
+    }
+
+    func setEncodedImage(_ image: Data) {
+        self.encodedImage = image
+    }
+
+    // Getter and Setter for wireframe
+    func getWireframe() -> String {
+        return wireframe
+    }
+
+    func setWireframe(_ wireframe: String) {
+        self.wireframe = wireframe
+    }
+}
+
 public class UserExperiorSDKPlugin : NSObject, UEPlatformPluginInterface
 {
     // MARK: - Attributes
@@ -54,9 +99,14 @@ public class UserExperiorSDKPlugin : NSObject, UEPlatformPluginInterface
         let startTime = DispatchTime.now()
         DispatchQueue.main.async {
             
-            channel.invokeMethod("getMarkerLocations", arguments: "arg") { (result) in
-               
-                guard let locations = result as? Array<Dictionary<String, String>> else {
+            channel.invokeMethod("fetchFlutterData", arguments: "arg") { (result) in
+                
+                guard let payload = result as? [String: Any] else {
+                    print( "Error occurred on MaskedLocations, please submit a bug. Or check that you have added UEMarker Widget to your application")
+                    return
+                }
+                
+                guard let locations = payload["locations"] as? Array<Dictionary<String, String>> else {
                     print( "Error occurred on MaskedLocations, please submit a bug. Or check that you have added UEMarker Widget to your application")
                     return
                 }

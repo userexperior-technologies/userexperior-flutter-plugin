@@ -137,184 +137,184 @@ class UserExperiorSDKCallHandler(
                 }
 
                 MethodsNames.TIMER_START -> {
-                    val timerName = call.argument<String>("timerName")
-                    try {
-                        @Suppress("DEPRECATION")
-                        UserExperior.startTimer(timerName)
-                    } catch (e: Exception) {
-                        Log.d(
-                            "UserExperiorPlugin",
-                            "Error occurred on \"${MethodsNames.TIMER_START}\", please submit a bug. If the log persists after start of the app submit a bug."
-                        )
-                        e.printStackTrace()
-                    }
+                    // val timerName = call.argument<String>("timerName")
+                    // try {
+                    //     @Suppress("DEPRECATION")
+                    //     UserExperior.startTimer(timerName)
+                    // } catch (e: Exception) {
+                    //     Log.d(
+                    //         "UserExperiorPlugin",
+                    //         "Error occurred on \"${MethodsNames.TIMER_START}\", please submit a bug. If the log persists after start of the app submit a bug."
+                    //     )
+                    //     e.printStackTrace()
+                    // }
                 }
 
                 MethodsNames.TIMER_START_WITH_PROPERTIES -> {
-                    val timerNameWithProp = call.argument<String>("timerName")
-                    val timerProps = call.argument<HashMap<String, String>>("properties")
-
-                    require(!(timerNameWithProp.isNullOrEmpty())) { "missing timer Name" }
-
-                    if (timerProps == null || timerProps.size == 0) {
-                        try {
-                            @Suppress("DEPRECATION")
-                            UserExperior.startTimer(timerNameWithProp)
-                        } catch (e: Exception) {
-                            Log.d(
-                                "UserExperiorPlugin",
-                                "Error occurred on \"${MethodsNames.TIMER_START}\", please submit a bug. If the log persists after start of the app submit a bug."
-                            )
-                            e.printStackTrace()
-                        }
-                    } else {
-                        try {
-                            UserExperior.startTimer(timerNameWithProp, timerProps)
-                        } catch (e: Exception) {
-                            Log.d(
-                                "UserExperiorPlugin",
-                                "Error occurred on \"${MethodsNames.TIMER_START_WITH_PROPERTIES}\", please submit a bug. If the log persists after start of the app submit a bug."
-                            )
-                            e.printStackTrace()
-                        }
-                    }
+                    // val timerNameWithProp = call.argument<String>("timerName")
+                    // val timerProps = call.argument<HashMap<String, String>>("properties")
+                    //
+                    // require(!(timerNameWithProp.isNullOrEmpty())) { "missing timer Name" }
+                    //
+                    // if (timerProps == null || timerProps.size == 0) {
+                    //     try {
+                    //         @Suppress("DEPRECATION")
+                    //         UserExperior.startTimer(timerNameWithProp)
+                    //     } catch (e: Exception) {
+                    //         Log.d(
+                    //             "UserExperiorPlugin",
+                    //             "Error occurred on \"${MethodsNames.TIMER_START}\", please submit a bug. If the log persists after start of the app submit a bug."
+                    //         )
+                    //         e.printStackTrace()
+                    //     }
+                    // } else {
+                    //     try {
+                    //         UserExperior.startTimer(timerNameWithProp, timerProps)
+                    //     } catch (e: Exception) {
+                    //         Log.d(
+                    //             "UserExperiorPlugin",
+                    //             "Error occurred on \"${MethodsNames.TIMER_START_WITH_PROPERTIES}\", please submit a bug. If the log persists after start of the app submit a bug."
+                    //         )
+                    //         e.printStackTrace()
+                    //     }
+                    // }
                 }
 
                 MethodsNames.TIMER_END -> {
-                    val timerName = call.argument<String>("timerName")
-                    try {
-                        @Suppress("DEPRECATION")
-                        UserExperior.endTimer(timerName)
-                    } catch (e: Exception) {
-                        Log.d(
-                            "UserExperiorPlugin",
-                            "Error occurred on \"${MethodsNames.TIMER_END}\", please submit a bug. If the log persists after start of the app submit a bug."
-                        )
-                        e.printStackTrace()
-                    }
+                    // val timerName = call.argument<String>("timerName")
+                    // try {
+                    //     @Suppress("DEPRECATION")
+                    //     UserExperior.endTimer(timerName)
+                    // } catch (e: Exception) {
+                    //     Log.d(
+                    //         "UserExperiorPlugin",
+                    //         "Error occurred on \"${MethodsNames.TIMER_END}\", please submit a bug. If the log persists after start of the app submit a bug."
+                    //     )
+                    //     e.printStackTrace()
+                    // }
                 }
 
                 MethodsNames.TIMER_END_WITH_PROPERTIES -> {
-                    val timerNameWithProp = call.argument<String>("timerName")
-                    val timerProps = call.argument<HashMap<String, String>>("properties")
-
-                    require(!(timerNameWithProp.isNullOrEmpty())) { "missing timer Name" }
-
-                    if (timerProps == null || timerProps.size == 0) {
-                        try {
-                            @Suppress("DEPRECATION")
-                            UserExperior.endTimer(timerNameWithProp)
-                        } catch (e: Exception) {
-                            Log.d(
-                                "UserExperiorPlugin",
-                                "Error occurred on \"${MethodsNames.TIMER_END}\", please submit a bug. If the log persists after start of the app submit a bug."
-                            )
-                            e.printStackTrace()
-                        }
-                    } else {
-                        try {
-                            UserExperior.endTimer(timerNameWithProp, timerProps)
-                        } catch (e: Exception) {
-                            Log.d(
-                                "UserExperiorPlugin",
-                                "Error occurred on \"${MethodsNames.TIMER_END_WITH_PROPERTIES}\", please submit a bug. If the log persists after start of the app submit a bug."
-                            )
-                            e.printStackTrace()
-                        }
-                    }
+                    // val timerNameWithProp = call.argument<String>("timerName")
+                    // val timerProps = call.argument<HashMap<String, String>>("properties")
+                    //
+                    // require(!(timerNameWithProp.isNullOrEmpty())) { "missing timer Name" }
+                    //
+                    // if (timerProps == null || timerProps.size == 0) {
+                    //     try {
+                    //         @Suppress("DEPRECATION")
+                    //         UserExperior.endTimer(timerNameWithProp)
+                    //     } catch (e: Exception) {
+                    //         Log.d(
+                    //             "UserExperiorPlugin",
+                    //             "Error occurred on \"${MethodsNames.TIMER_END}\", please submit a bug. If the log persists after start of the app submit a bug."
+                    //         )
+                    //         e.printStackTrace()
+                    //     }
+                    // } else {
+                    //     try {
+                    //         UserExperior.endTimer(timerNameWithProp, timerProps)
+                    //     } catch (e: Exception) {
+                    //         Log.d(
+                    //             "UserExperiorPlugin",
+                    //             "Error occurred on \"${MethodsNames.TIMER_END_WITH_PROPERTIES}\", please submit a bug. If the log persists after start of the app submit a bug."
+                    //         )
+                    //         e.printStackTrace()
+                    //     }
+                    // }
                 }
 
                 MethodsNames.LOG_EVENT -> {
-                    val eventName = call.argument<String>("eventName")
-
-                    require(!(eventName.isNullOrEmpty())) { "missing event Name" }
-
-                    try {
-                        UserExperior.logEvent(eventName)
-                    } catch (e: Exception) {
-                        Log.d(
-                            "UserExperiorPlugin",
-                            "Error occurred on \"${MethodsNames.LOG_EVENT}\", please submit a bug. If the log persists after start of the app submit a bug."
-                        )
-                        e.printStackTrace()
-                    }
+                    // val eventName = call.argument<String>("eventName")
+                    //
+                    // require(!(eventName.isNullOrEmpty())) { "missing event Name" }
+                    //
+                    // try {
+                    //     UserExperior.logEvent(eventName)
+                    // } catch (e: Exception) {
+                    //     Log.d(
+                    //         "UserExperiorPlugin",
+                    //         "Error occurred on \"${MethodsNames.LOG_EVENT}\", please submit a bug. If the log persists after start of the app submit a bug."
+                    //     )
+                    //     e.printStackTrace()
+                    // }
                 }
 
                 MethodsNames.LOG_EVENT_WITH_PROPERTIES -> {
-                    val eventNameWithProp = call.argument<String>("eventName")
-                    val evtMap = call.argument<HashMap<String, Any>>("properties")
-
-                    require(!(eventNameWithProp.isNullOrEmpty())) { "missing event Name" }
-
-                    if (evtMap == null || evtMap.size == 0) {
-                        try {
-                            UserExperior.logEvent(eventNameWithProp)
-                        } catch (e: Exception) {
-                            Log.d(
-                                "UserExperiorPlugin",
-                                "Error occurred on \"${MethodsNames.LOG_EVENT}\", please submit a bug. If the log persists after start of the app submit a bug."
-                            )
-                            e.printStackTrace()
-                        }
-                    } else {
-                        try {
-                            UserExperior.logEvent(eventNameWithProp, evtMap)
-                        } catch (e: Exception) {
-                            Log.d(
-                                "UserExperiorPlugin",
-                                "Error occurred on \"${MethodsNames.LOG_EVENT_WITH_PROPERTIES}\", please submit a bug. If the log persists after start of the app submit a bug."
-                            )
-                            e.printStackTrace()
-                        }
-                    }
+                    // val eventNameWithProp = call.argument<String>("eventName")
+                    // val evtMap = call.argument<HashMap<String, Any>>("properties")
+                    //
+                    // require(!(eventNameWithProp.isNullOrEmpty())) { "missing event Name" }
+                    //
+                    // if (evtMap == null || evtMap.size == 0) {
+                    //     try {
+                    //         UserExperior.logEvent(eventNameWithProp)
+                    //     } catch (e: Exception) {
+                    //         Log.d(
+                    //             "UserExperiorPlugin",
+                    //             "Error occurred on \"${MethodsNames.LOG_EVENT}\", please submit a bug. If the log persists after start of the app submit a bug."
+                    //         )
+                    //         e.printStackTrace()
+                    //     }
+                    // } else {
+                    //     try {
+                    //         UserExperior.logEvent(eventNameWithProp, evtMap)
+                    //     } catch (e: Exception) {
+                    //         Log.d(
+                    //             "UserExperiorPlugin",
+                    //             "Error occurred on \"${MethodsNames.LOG_EVENT_WITH_PROPERTIES}\", please submit a bug. If the log persists after start of the app submit a bug."
+                    //         )
+                    //         e.printStackTrace()
+                    //     }
+                    // }
                 }
 
                 MethodsNames.LOG_MESSAGE -> {
-                    val messageName = call.argument<String>("messageName")
-
-                    require(!(messageName.isNullOrEmpty())) { "missing msg Name" }
-
-                    try {
-                        @Suppress("DEPRECATION")
-                        UserExperior.logMessage(messageName)
-                    } catch (e: Exception) {
-                        Log.d(
-                            "UserExperiorPlugin",
-                            "Error occurred on \"${MethodsNames.LOG_MESSAGE}\", please submit a bug. If the log persists after start of the app submit a bug."
-                        )
-                        e.printStackTrace()
-                    }
+                    // val messageName = call.argument<String>("messageName")
+                    //
+                    // require(!(messageName.isNullOrEmpty())) { "missing msg Name" }
+                    //
+                    // try {
+                    //     @Suppress("DEPRECATION")
+                    //     UserExperior.logMessage(messageName)
+                    // } catch (e: Exception) {
+                    //     Log.d(
+                    //         "UserExperiorPlugin",
+                    //         "Error occurred on \"${MethodsNames.LOG_MESSAGE}\", please submit a bug. If the log persists after start of the app submit a bug."
+                    //     )
+                    //     e.printStackTrace()
+                    // }
                 }
 
                 MethodsNames.LOG_MESSAGE_WITH_PROPERTIES -> {
-                    val messageNameWithProp = call.argument<String>("messageName")
-                    val msgMap = call.argument<HashMap<String, Any>>("properties")
-
-                    require(!(messageNameWithProp.isNullOrEmpty())) { "missing msg Name" }
-
-                    if (msgMap == null || msgMap.size == 0) {
-                        try {
-                            @Suppress("DEPRECATION")
-                            UserExperior.logMessage(messageNameWithProp)
-                        } catch (e: Exception) {
-                            Log.d(
-                                "UserExperiorPlugin",
-                                "Error occurred on \"${MethodsNames.LOG_MESSAGE}\", please submit a bug. If the log persists after start of the app submit a bug."
-                            )
-                            e.printStackTrace()
-                        }
-                    } else {
-                        try {
-                            @Suppress("DEPRECATION")
-                            UserExperior.logMessage(messageNameWithProp, msgMap)
-                        } catch (e: Exception) {
-                            Log.d(
-                                "UserExperiorPlugin",
-                                "Error occurred on \"${MethodsNames.LOG_MESSAGE_WITH_PROPERTIES}\", please submit a bug. If the log persists after start of the app submit a bug."
-                            )
-                            e.printStackTrace()
-                        }
-                    }
+                    // val messageNameWithProp = call.argument<String>("messageName")
+                    // val msgMap = call.argument<HashMap<String, Any>>("properties")
+                    //
+                    // require(!(messageNameWithProp.isNullOrEmpty())) { "missing msg Name" }
+                    //
+                    // if (msgMap == null || msgMap.size == 0) {
+                    //     try {
+                    //         @Suppress("DEPRECATION")
+                    //         UserExperior.logMessage(messageNameWithProp)
+                    //     } catch (e: Exception) {
+                    //         Log.d(
+                    //             "UserExperiorPlugin",
+                    //             "Error occurred on \"${MethodsNames.LOG_MESSAGE}\", please submit a bug. If the log persists after start of the app submit a bug."
+                    //         )
+                    //         e.printStackTrace()
+                    //     }
+                    // } else {
+                    //     try {
+                    //         @Suppress("DEPRECATION")
+                    //         UserExperior.logMessage(messageNameWithProp, msgMap)
+                    //     } catch (e: Exception) {
+                    //         Log.d(
+                    //             "UserExperiorPlugin",
+                    //             "Error occurred on \"${MethodsNames.LOG_MESSAGE_WITH_PROPERTIES}\", please submit a bug. If the log persists after start of the app submit a bug."
+                    //         )
+                    //         e.printStackTrace()
+                    //     }
+                    // }
                 }
 
                 MethodsNames.DEVICE_LOCATION -> {
@@ -334,13 +334,13 @@ class UserExperiorSDKCallHandler(
                 }
 
                 MethodsNames.OPT_OUT -> {
-                    @Suppress("DEPRECATION")
-                    UserExperior.optOut()
+                    // @Suppress("DEPRECATION")
+                    // UserExperior.optOut()
                 }
 
                 MethodsNames.OPT_IN -> {
-                    @Suppress("DEPRECATION")
-                    UserExperior.optIn()
+                    // @Suppress("DEPRECATION")
+                    // UserExperior.optIn()
                 }
 
                 MethodsNames.GET_OPT_OUT_STATUS -> {

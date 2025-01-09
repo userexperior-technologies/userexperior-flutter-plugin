@@ -33,11 +33,15 @@ class UEMarkerState extends State<UEMarker> {
 
   // region - getters
   UEMarkerLocation get locationInGlobalScope {
-
     return UEMarkerLocation(
-      uuid: _widgetKey.uuid,
-      rect: mounted ? _enableMasking ? _widgetKey.globalPaintBounds : Rect.zero : Rect.zero);
+        uuid: _widgetKey.uuid,
+        rect: mounted
+            ? _enableMasking
+                ? _widgetKey.globalPaintBounds
+                : Rect.zero
+            : Rect.zero);
   }
+
   // endregion
 
   // region - override
@@ -93,7 +97,7 @@ class UEMarkerState extends State<UEMarker> {
       },
       onFocusLost: () {
         // if (mounted) {
-          _enableMasking = false;
+        _enableMasking = false;
         // }
       },
       child: widget.child,

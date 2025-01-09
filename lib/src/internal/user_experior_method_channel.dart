@@ -1,11 +1,15 @@
+import 'dart:io';
+import 'dart:ui' as ui;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import '../ue_plugin.dart';
-import 'monitor/marker_monitor_controller.dart';
-import 'user_experior_platform_interface.dart';
 import 'extensions/extensions_method_channel.dart';
 import 'extensions/extensions_util_marker_location.dart';
+import 'monitor/marker_monitor_controller.dart';
+import 'recorder/scheduled_screenshot_recorder.dart';
+import 'user_experior_platform_interface.dart';
 
 /// Native channels.
 class Channels {
@@ -20,6 +24,8 @@ class MethodChannelUserExperior extends UserExperiorPlatform {
   final MethodChannel methodChannel;
   bool isTransitioningState = false;
 
+  UEScheduledScreenshotRecorder? _recorder;
+
   // endregion
   // region - constructor
   MethodChannelUserExperior({this.methodChannel = Channels.channel}) : super() {
@@ -27,15 +33,29 @@ class MethodChannelUserExperior extends UserExperiorPlatform {
   }
 
   // endregion
+  static Uint8List? _screenshotImage;
 
   // region - Trigger from native
   Future<dynamic> _methodCallHandler(MethodCall methodCall) async {
     switch (methodCall.method) {
-      case "getMarkerLocations":
-        return UEMarkerMonitorController.instance
-            .getMarkerLocations()
-            .map((e) => e.toJson)
-            .toList();
+      case "fetchFlutterData":
+        Map<String, dynamic> payload = Map.from({});
+
+        if (Platform.isAndroid) {
+          payload['locations'] = Map.from({});
+        } else {
+          var locations = UEMarkerMonitorController.instance
+              .getMarkerLocations()
+              .map((e) => e.toJson)
+              .toList();
+          payload['locations'] = locations;
+        }
+
+        if (_screenshotImage != null && _screenshotImage!.isNotEmpty) {
+          payload['image'] = _screenshotImage;
+        }
+
+        return payload;
       default:
         return null;
     }
@@ -68,20 +88,37 @@ class MethodChannelUserExperior extends UserExperiorPlatform {
       "fw": UserExperior.fw,
       "sv": UserExperior.sv
     });
+    if (Platform.isAndroid) {
+      callback(image) async {
+        ByteData? byteData =
+            await image.toByteData(format: ui.ImageByteFormat.png);
+        if (byteData != null) {
+          _screenshotImage = byteData.buffer.asUint8List();
+          // String base64String = base64Encode(_screenshotImage!);
+          // debugPrint(base64String);
+        }
+      }
+
+      _recorder = UEScheduledScreenshotRecorder(callback, 200)..start();
+    }
   }
 
   @override
   Future<void> stopRecording() async {
+    _recorder?.stop();
     await methodChannel.invokeMethodOnMobile('stopRecording');
+    _recorder = null;
   }
 
   @override
   Future<void> pauseRecording() async {
+    _recorder?.stop();
     await methodChannel.invokeMethodOnMobile('pauseRecording');
   }
 
   @override
   Future<void> resumeRecording() async {
+    _recorder?.start();
     await methodChannel.invokeMethodOnMobile('resumeRecording');
   }
 
