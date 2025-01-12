@@ -1,11 +1,14 @@
+# 5.0.6
+* Minor Bug Fixes and optimisations
+
 # 5.0.5
 * Minor Bug Fixes, Performance improvement and optimisations
 
 # 5.0.4
-* Minore Bug Fixes
+* Minor Bug Fixes
 
 # 5.0.3
-* Minore Bug Fixes
+* Minor Bug Fixes
 
 # 5.0.2
 * Fixed compatibility issue of Dart SDK with client apps

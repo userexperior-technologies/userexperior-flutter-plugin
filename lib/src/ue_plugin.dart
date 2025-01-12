@@ -4,7 +4,7 @@ import 'internal/user_experior_platform_interface.dart';
 
 class UserExperior {
   static const fw = "fr";
-  static const sv = "5.0.5"; // SDK/Plugin version
+  static const sv = "5.0.6"; // SDK/Plugin version
 
   static final UserExperior _instance = UserExperior();
   /// The default instance of [UserExperior] to use.
