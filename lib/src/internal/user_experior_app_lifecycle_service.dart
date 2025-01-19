@@ -1,9 +1,19 @@
 import 'package:flutter/widgets.dart';
 
 class UserExperiorAppLifecycle with WidgetsBindingObserver {
-  static final UserExperiorAppLifecycle _instance = UserExperiorAppLifecycle._internal();
+  static final UserExperiorAppLifecycle _instance =
+      UserExperiorAppLifecycle._internal();
 
   bool isAppInForeground = true;
+  AppLifecycleListener a = AppLifecycleListener(
+    onResume: () => debugPrint('AppLifecycleListener state. Current state: resume'),
+    onInactive: () => debugPrint('AppLifecycleListener state. Current state: inactive'),
+    onHide: () => debugPrint('AppLifecycleListener state. Current state: hide'),
+    onShow: () => debugPrint('AppLifecycleListener state. Current state: show'),
+    onPause: () => debugPrint('AppLifecycleListener state. Current state: pause'),
+    onRestart: () => debugPrint('AppLifecycleListener state. Current state: restart'),
+    onDetach: () => debugPrint('AppLifecycleListener state. Current state: detach'),
+  );
 
   factory UserExperiorAppLifecycle() {
     return _instance;
@@ -16,6 +26,8 @@ class UserExperiorAppLifecycle with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    // debugPrint("AppLifecycleService state. Current state: ${state.toString()}");
+
     if (state == AppLifecycleState.resumed) {
       // App is in the foreground
       isAppInForeground = true;
@@ -35,4 +47,3 @@ class UserExperiorAppLifecycle with WidgetsBindingObserver {
     WidgetsBinding.instance.removeObserver(_instance);
   }
 }
-

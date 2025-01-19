@@ -34,8 +34,7 @@ class UserExperiorSDKPlugin(
         UEPlatformPluginInformation("FLUTTER", "5.0.0.1")
 
     override fun pluginRootClasses(): List<Class<out View?>?> = listOf(FlutterView::class.java)
-    override fun obtainPluginView(instance: View?): UEPlatformPluginView? {
-
+    override fun obtainPluginView(instance: View): UEPlatformPluginView? {
         if (instance !is FlutterView) {
             return super.obtainPluginView(instance)
         }
@@ -47,19 +46,18 @@ class UserExperiorSDKPlugin(
 
         Handler(Looper.getMainLooper()).post {
 
-            methodChannel.invokeMethod("fetchFlutterData", "arg", object : MethodChannel.Result {
+            methodChannel.invokeMethod("fetchFlutterData", mapOf("mode" to "full"), object : MethodChannel.Result {
 
                 override fun success(result: Any?) {
 
                     val cacheEntry = cache.getOrPut(instance) { UEPlatformPluginView() }
-
                     val payload = (result as? HashMap<*, *>)
                         ?.filterKeys { it is String }
                         ?.mapKeys { it.key as String } as? HashMap<String, Any>
                         ?: HashMap()
 
                     val wireframe = payload["wireframe"] as? String
-                    val encodedImage = payload["image"] as? ByteArray
+                    val encodedImage = payload["screenshot"] as? ByteArray
                     val locations = (payload["locations"] as? List<*>)
                         ?.filterIsInstance<HashMap<String, String>>()
                         ?.toCollection(ArrayList())

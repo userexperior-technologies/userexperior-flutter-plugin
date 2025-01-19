@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
 import '../ue_plugin.dart';
@@ -9,6 +10,7 @@ import 'extensions/extensions_method_channel.dart';
 import 'extensions/extensions_util_marker_location.dart';
 import 'monitor/marker_monitor_controller.dart';
 import 'recorder/scheduled_screenshot_recorder.dart';
+import 'scraper/render_tree.dart';
 import 'user_experior_platform_interface.dart';
 
 /// Native channels.
@@ -35,27 +37,57 @@ class MethodChannelUserExperior extends UserExperiorPlatform {
   // endregion
   static Uint8List? _screenshotImage;
 
+  static double get _devicePixelRatio {
+    final views = PlatformDispatcher.instance.views;
+    final onAndroid = Platform.isAndroid;
+    return onAndroid ? views.first.devicePixelRatio : 1.0;
+  }
+
+  static Future<Uint8List?> _captureScreenshot(
+      RenderRepaintBoundary boundary) async {
+    try {
+      final watch = Stopwatch()..start();
+      ui.Image image =
+          await boundary.toImage(pixelRatio: _devicePixelRatio / 3);
+      final blockingTime = watch.elapsedMilliseconds;
+      debugPrint(
+          "ScreenshotRecorder: captured a screenshot in ${watch.elapsedMilliseconds}ms ($blockingTime ms blocking).");
+      ByteData? byteData =
+          await image.toByteData(format: ui.ImageByteFormat.png);
+      return byteData?.buffer.asUint8List();
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
+  }
+
+  static Future<Uint8List?> _fetchScreenshot() async {
+    final renderObject = UERenderTreeUtils.firstAppRepaintBoundary();
+    if (renderObject == null) {
+      debugPrint("Render is not found, skipping frame capture.");
+      return null;
+    }
+    var encodedImage = await _captureScreenshot(renderObject);
+    return encodedImage;
+  }
+
   // region - Trigger from native
   Future<dynamic> _methodCallHandler(MethodCall methodCall) async {
     switch (methodCall.method) {
       case "fetchFlutterData":
         Map<String, dynamic> payload = Map.from({});
+        var mode = methodCall.arguments["mode"] as String;
 
-        if (Platform.isAndroid) {
-          payload['locations'] = Map.from({});
-        } else {
+        if (mode == "full") {
           var locations = UEMarkerMonitorController.instance
               .getMarkerLocations()
               .map((e) => e.toJson)
               .toList();
           payload['locations'] = locations;
+          payload['wireframe'] = "";
+          // payload['identifier'] = "${methodCall.arguments["identifier"]}";
+          payload['screenshot'] = await _fetchScreenshot();
         }
-
-        if (_screenshotImage != null && _screenshotImage!.isNotEmpty) {
-          payload['image'] = _screenshotImage;
-        }
-
-        payload['wireframe'] = "";
 
         return payload;
       default:
@@ -91,37 +123,37 @@ class MethodChannelUserExperior extends UserExperiorPlatform {
       "sv": UserExperior.sv
     });
 
-    if (Platform.isAndroid) {
-      callback(image) async {
-        ByteData? byteData =
-            await image.toByteData(format: ui.ImageByteFormat.png);
-        if (byteData != null) {
-          _screenshotImage = byteData.buffer.asUint8List();
-          // String base64String = base64Encode(_screenshotImage!);
-          // debugPrint(base64String);
-        }
-      }
-
-      _recorder = UEScheduledScreenshotRecorder(callback, 200)..start();
-    }
+    // if (Platform.isAndroid) {
+    //   callback(image) async {
+    //     ByteData? byteData =
+    //         await image.toByteData(format: ui.ImageByteFormat.png);
+    //     if (byteData != null) {
+    //       _screenshotImage = byteData.buffer.asUint8List();
+    //       // String base64String = base64Encode(_screenshotImage!);
+    //       // debugPrint(base64String);
+    //     }
+    //   }
+    //
+    //   _recorder = UEScheduledScreenshotRecorder(callback, 200)..start();
+    // }
   }
 
   @override
   Future<void> stopRecording() async {
-    _recorder?.stop();
+    // _recorder?.stop();
     await methodChannel.invokeMethodOnMobile('stopRecording');
-    _recorder = null;
+    // _recorder = null;
   }
 
   @override
   Future<void> pauseRecording() async {
-    _recorder?.stop();
+    // _recorder?.stop();
     await methodChannel.invokeMethodOnMobile('pauseRecording');
   }
 
   @override
   Future<void> resumeRecording() async {
-    _recorder?.start();
+    // _recorder?.start();
     await methodChannel.invokeMethodOnMobile('resumeRecording');
   }
 

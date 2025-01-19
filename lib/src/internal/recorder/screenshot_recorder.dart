@@ -57,6 +57,9 @@ class UEScreenshotRecorder {
 
   // region - public methods
   Future<void> capture(UEScreenshotRecorderCallback callback) async {
+
+    debugPrint("$logName: Rendering.");
+
     if (!UserExperiorAppLifecycle().isAppInForeground) {
       debugPrint("$logName: Application is not in the Foreground, "
           "skipping frame capture.");
@@ -69,6 +72,8 @@ class UEScreenshotRecorder {
           "skipping frame capture.");
       return;
     }
+
+    debugPrint("$logName: Rendering.");
 
     try {
       final watch = Stopwatch()..start();
