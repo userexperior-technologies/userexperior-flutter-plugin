@@ -1,3 +1,6 @@
+# 5.0.7
+* Minor Bug Fixes and optimisations
+
 # 5.0.6
 * Minor Bug Fixes and optimisations
 
