@@ -72,7 +72,7 @@ public class UserExperiorSDKPlugin : NSObject, UEPlatformPluginInterface
         let startTime = DispatchTime.now()
         DispatchQueue.main.async {
             
-            channel.invokeMethod("fetchFlutterData", arguments: "arg") { (result) in
+            channel.invokeMethod("fetchFlutterData", arguments: ["mode": "basic"]) { (result) in
                 
                 guard let payload = result as? [String: Any] else {
                     print( "Error occurred on MaskedLocations, please submit a bug. Or check that you have added UEMarker Widget to your application")

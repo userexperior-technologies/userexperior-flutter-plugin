@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 import '../ue_plugin.dart';
 import 'extensions/extensions_method_channel.dart';
@@ -36,6 +37,7 @@ class MethodChannelUserExperior extends UserExperiorPlatform {
 
   // endregion
   static Uint8List? _screenshotImage;
+  static bool _isProcessingScreenshot = false;
 
   static double get _devicePixelRatio {
     final views = PlatformDispatcher.instance.views;
@@ -43,32 +45,54 @@ class MethodChannelUserExperior extends UserExperiorPlatform {
     return onAndroid ? views.first.devicePixelRatio : 1.0;
   }
 
-  static Future<Uint8List?> _captureScreenshot(
-      RenderRepaintBoundary boundary) async {
+  static Future<Map<String, dynamic>?> _captureScreenshot(RenderRepaintBoundary boundary) async {
     try {
       final watch = Stopwatch()..start();
-      ui.Image image =
-          await boundary.toImage(pixelRatio: _devicePixelRatio / 3);
-      final blockingTime = watch.elapsedMilliseconds;
-      debugPrint(
-          "ScreenshotRecorder: captured a screenshot in ${watch.elapsedMilliseconds}ms ($blockingTime ms blocking).");
-      ByteData? byteData =
-          await image.toByteData(format: ui.ImageByteFormat.png);
-      return byteData?.buffer.asUint8List();
+      ui.Image image = await boundary.toImage(pixelRatio: _devicePixelRatio);
+      int width = image.width;
+      int height = image.height;
+
+      debugPrint("ScreenshotRecorder02: screenshot taken in ${watch.elapsedMilliseconds}ms");
+      ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.rawRgba);
+      debugPrint("ScreenshotRecorder02: screenshot conversion in ${watch.elapsedMilliseconds}ms");
+      image.dispose();
+
+      if (byteData == null) return null;
+      return {
+        "screenshot": byteData.buffer.asUint8List(),
+        "width": width,
+        "height": height
+      };
+
     } catch (e) {
       debugPrint(e.toString());
+      debugPrint("ScreenshotRecorder00: error: ${e.toString()}");
       return null;
     }
   }
 
-  static Future<Uint8List?> _fetchScreenshot() async {
-    final renderObject = UERenderTreeUtils.firstAppRepaintBoundary();
-    if (renderObject == null) {
-      debugPrint("Render is not found, skipping frame capture.");
-      return null;
+  static Future<Map<String, dynamic>?> _fetchScreenshot() async {
+    if (_isProcessingScreenshot) {
+      debugPrint("ScreenshotRecorder00: Skipping screenshot, still processing previous one.");
+      return null; // Skip this request
     }
-    var encodedImage = await _captureScreenshot(renderObject);
-    return encodedImage;
+    _isProcessingScreenshot = true; // Mark as in progress
+    debugPrint("ScreenshotRecorder00: Starting screenshot process");
+
+    final watch = Stopwatch()..start();
+    try {
+      final renderObject = UERenderTreeUtils.firstAppRepaintBoundary();
+      if (renderObject == null) {
+        debugPrint("ScreenshotRecorder00: Render is not found, skipping frame capture.");
+        return null;
+      }
+      debugPrint("ScreenshotRecorder01: search for render object ${watch.elapsedMilliseconds}ms.");
+      var encodedData = await _captureScreenshot(renderObject);
+      debugPrint("ScreenshotRecorder01: capture total finished ${watch.elapsedMilliseconds}ms.");
+      return encodedData;
+    } finally {
+      _isProcessingScreenshot = false; // Mark as complete
+    }
   }
 
   // region - Trigger from native
@@ -85,10 +109,23 @@ class MethodChannelUserExperior extends UserExperiorPlatform {
               .toList();
           payload['locations'] = locations;
           payload['wireframe'] = "";
-          // payload['identifier'] = "${methodCall.arguments["identifier"]}";
-          payload['screenshot'] = await _fetchScreenshot();
+          debugPrint("ScreenshotRecorder01: _fetchScreenshot start");
+          var screenshot = await _fetchScreenshot();
+          debugPrint("ScreenshotRecorder01: _fetchScreenshot done");
+          if (screenshot != null) {
+            payload['screenshot'] = screenshot['screenshot'];
+            payload['height'] = screenshot['height'];
+            payload['width'] = screenshot['width'];
+          }
         }
+        if (mode == "basic") {
+          var locations = UEMarkerMonitorController.instance
+              .getMarkerLocations()
+              .map((e) => e.toJson)
+              .toList();
+          payload['locations'] = locations;
 
+        }
         return payload;
       default:
         return null;
