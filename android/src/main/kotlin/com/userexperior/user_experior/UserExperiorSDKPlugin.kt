@@ -60,6 +60,7 @@ class UserExperiorSDKPlugin(
                     val encodedImage = payload["screenshot"] as? ByteArray
                     val encodedWidth = payload["width"] as? Int
                     val encodedHeight = payload["height"] as? Int
+                    val encodedFormat = payload["format"] as? Int
                     val locations = (payload["locations"] as? List<*>)
                         ?.filterIsInstance<HashMap<String, String>>()
                         ?.toCollection(ArrayList())
@@ -81,6 +82,9 @@ class UserExperiorSDKPlugin(
                     }
                     if (encodedHeight != null) {
                         cacheEntry.height = encodedHeight
+                    }
+                    if (encodedFormat != null) {
+                        cacheEntry.encodedFormat = encodedFormat
                     }
                     if (wireframe != null) {
                         cacheEntry.wireframe = wireframe

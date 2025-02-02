@@ -61,7 +61,8 @@ class MethodChannelUserExperior extends UserExperiorPlatform {
       return {
         "screenshot": byteData.buffer.asUint8List(),
         "width": width,
-        "height": height
+        "height": height,
+        "format": 0,
       };
 
     } catch (e) {
@@ -116,6 +117,7 @@ class MethodChannelUserExperior extends UserExperiorPlatform {
             payload['screenshot'] = screenshot['screenshot'];
             payload['height'] = screenshot['height'];
             payload['width'] = screenshot['width'];
+            payload['format'] = screenshot['format'];
           }
         }
         if (mode == "basic") {
