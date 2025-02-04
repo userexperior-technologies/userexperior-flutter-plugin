@@ -93,7 +93,7 @@ class UEMarkerState extends State<UEMarker> {
       },
       onFocusLost: () {
         // if (mounted) {
-          _enableMasking = false;
+        _enableMasking = false;
         // }
       },
       child: widget.child,
