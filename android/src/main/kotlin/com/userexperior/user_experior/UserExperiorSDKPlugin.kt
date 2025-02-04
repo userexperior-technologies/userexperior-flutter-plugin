@@ -12,6 +12,8 @@ import io.flutter.embedding.android.FlutterView
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodChannel
 import java.util.WeakHashMap
+//import android.graphics.Bitmap
+//import java.nio.ByteBuffer
 
 @Suppress("unused")
 class UserExperiorSDKPlugin(
@@ -90,8 +92,13 @@ class UserExperiorSDKPlugin(
                         cacheEntry.wireframe = wireframe
                     }
 
+                    // if (encodedImage != null && encodedWidth != null && encodedHeight != null) {
+                    //     val aa = rawARGBtoBitmap(encodedImage, encodedWidth, encodedHeight)
+                    //     Log.d("UserExperiorSDKPlugin:", "${timer.elapsedMilliseconds()}")
+                    // }
+
                     if (isDebugMode) {
-                        Log.d("elapsedTime:", "${timer.elapsedMicros()}")
+                        Log.d("UserExperiorSDKPlugin:", "${timer.elapsedMilliseconds()}")
                     }
                 }
 
@@ -116,6 +123,18 @@ class UserExperiorSDKPlugin(
         return cache[instance]
     }
     // endregion
+    //    private fun rawARGBtoBitmap(argbData: ByteArray, width: Int, height: Int): Bitmap? {
+    //        if (argbData.isEmpty() || width <= 0 || height <= 0) {
+    //            return null
+    //        }
+    //        val timer = UserExperiorTimer().apply { start() }
+    //
+    //        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+    //        val buffer = ByteBuffer.wrap(argbData)
+    //        bitmap.copyPixelsFromBuffer(buffer)
+    //        Log.d("UserExperiorSDKPlugin:", "rawARGBtoBitmap:: ${timer.elapsedMilliseconds()}")
+    //        return bitmap
+    //    }
 }
 
 private fun HashMap<String, String>.toUEPlatformMask(): UEPlatformMask {
@@ -140,6 +159,11 @@ private class UserExperiorTimer {
 
     fun elapsedMicros(): Long {
         val current = System.nanoTime()
-        return (current - start) / 1000
+        return (current - start) / 1_000
+    }
+
+    fun elapsedMilliseconds(): Long {
+        val current = System.nanoTime()
+        return (current - start) / 1_000_000
     }
 }

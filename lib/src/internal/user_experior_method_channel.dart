@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:ui' as ui;
+import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
@@ -225,33 +226,54 @@ class MethodChannelUserExperior extends UserExperiorPlatform {
     return onAndroid ? views.first.devicePixelRatio : 1.0;
   }
 
+  static Uint8List convertRawRgbaToArgb(Uint8List rgbaData) {
+    final int length = rgbaData.length;
+    final Uint8List argbData = Uint8List(length);
+
+    for (int i = 0; i < length; i += 4) {
+      argbData[i] = rgbaData[i + 3]; // Move A to front
+      argbData[i + 1] = rgbaData[i]; // Move R
+      argbData[i + 2] = rgbaData[i + 1]; // Move G
+      argbData[i + 3] = rgbaData[i + 2]; // Move B
+    }
+
+    return argbData;
+  }
+
   static Future<Map<String, dynamic>?> _captureScreenshot(
       RenderRepaintBoundary boundary,
       Stopwatch watch) async {
     try {
       // final watch = Stopwatch()..start();
       ui.Image image =
-          await boundary.toImage(pixelRatio: _devicePixelRatio / 3);
+          await boundary.toImage(pixelRatio: _devicePixelRatio);
       int width = image.width;
       int height = image.height;
       debugPrint(
           "ScreenshotRecorder02: screenshot finished at ${watch.elapsedMilliseconds}ms");
       ByteData? byteData =
-          await image.toByteData(format: ui.ImageByteFormat.png);
+          await image.toByteData(format: ui.ImageByteFormat.rawStraightRgba);
       debugPrint(
-          "ScreenshotRecorder02: conversion finished at ${watch.elapsedMilliseconds}ms");
+          "ScreenshotRecorder02: conversion to data finished at ${watch.elapsedMilliseconds}ms");
       image.dispose();
 
       if (byteData == null) return null;
+
+      Uint8List rgbaData = byteData.buffer.asUint8List();
+      debugPrint(
+          "ScreenshotRecorder02: conversion to rgbaData finished at ${watch.elapsedMilliseconds}ms");
+      Uint8List argbData = rgbaData;// convertRawRgbaToArgb(rgbaData);
+      debugPrint(
+          "ScreenshotRecorder02: conversion to argbData finished at ${watch.elapsedMilliseconds}ms");
 
       // String base64String = base64Encode(byteData.buffer.asUint8List());
       // debugPrint(base64String);
 
       return {
-        "screenshot": byteData.buffer.asUint8List(),
+        "screenshot": argbData,
         "width": width,
         "height": height,
-        "format": 1,
+        "format": 0,
       };
     } catch (e) {
       debugPrint(e.toString());
