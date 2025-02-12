@@ -8,12 +8,30 @@ import Foundation
 import UserExperiorSDK
 import Flutter
 
+class UEPlatformPluginView {
+    internal var locations: [String: UEPlatformMask]
+    internal var encodedImage: Data
+    internal var wireframe: String
+
+    // Default initializer
+    convenience init() {
+        self.init(locations: [:], image: Data(), wireframe: "")
+    }
+
+    // Custom initializer
+    init(locations: [String: UEPlatformMask], image: Data, wireframe: String) {
+        self.locations = locations
+        self.encodedImage = image
+        self.wireframe = wireframe
+    }
+}
+
 public class UserExperiorSDKPlugin : NSObject, UEPlatformPluginInterface
 {
     // MARK: - Attributes
     private  var recordingAllowed : Bool
     internal var methodChannel    : FlutterMethodChannel
-    internal var platformMasks    : [String:UEPlatformMask]
+    internal var pluginView       : UEPlatformPluginView
     internal var isDebugMode      : Bool
 
     // MARK: - Constructors
@@ -21,7 +39,7 @@ public class UserExperiorSDKPlugin : NSObject, UEPlatformPluginInterface
     {
         self.recordingAllowed = recordingAllowed
         self.methodChannel = channel
-        self.platformMasks = [String:UEPlatformMask]()
+        self.pluginView    = UEPlatformPluginView()
         self.isDebugMode   = false
         super.init()
     }
@@ -54,18 +72,23 @@ public class UserExperiorSDKPlugin : NSObject, UEPlatformPluginInterface
         let startTime = DispatchTime.now()
         DispatchQueue.main.async {
             
-            channel.invokeMethod("getMarkerLocations", arguments: "arg") { (result) in
-               
-                guard let locations = result as? Array<Dictionary<String, String>> else {
+            channel.invokeMethod("fetchFlutterData", arguments: ["mode": "basic"]) { (result) in
+                
+                guard let payload = result as? [String: Any] else {
                     print( "Error occurred on MaskedLocations, please submit a bug. Or check that you have added UEMarker Widget to your application")
                     return
                 }
                 
-                self.platformMasks.removeAll(keepingCapacity: true)
+                guard let locations = payload["locations"] as? Array<Dictionary<String, String>> else {
+                    print( "Error occurred on MaskedLocations, please submit a bug. Or check that you have added UEMarker Widget to your application")
+                    return
+                }
+                
+                self.pluginView.locations.removeAll(keepingCapacity: true)
                
                 for location in locations {
                     guard let mask = UEPlatformMask(location) else { continue }
-                    self.platformMasks[mask.identifier] = mask
+                    self.pluginView.locations[mask.identifier] = mask
                 }
                 
                 if (self.isDebugMode)
@@ -77,6 +100,6 @@ public class UserExperiorSDKPlugin : NSObject, UEPlatformPluginInterface
                 }
             }
         }
-        return platformMasks.compactMap { $0.value }
+        return pluginView.locations.compactMap { $0.value }
     }
 }

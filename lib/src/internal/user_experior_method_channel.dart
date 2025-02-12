@@ -1,11 +1,18 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:ui' as ui;
+import 'dart:typed_data';
+
 import 'package:flutter/foundation.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
 import '../ue_plugin.dart';
-import 'monitor/marker_monitor_controller.dart';
-import 'user_experior_platform_interface.dart';
 import 'extensions/extensions_method_channel.dart';
 import 'extensions/extensions_util_marker_location.dart';
+import 'monitor/marker_monitor_controller.dart';
+import 'scraper/render_tree.dart';
+import 'user_experior_platform_interface.dart';
 
 /// Native channels.
 class Channels {
@@ -31,11 +38,33 @@ class MethodChannelUserExperior extends UserExperiorPlatform {
   // region - Trigger from native
   Future<dynamic> _methodCallHandler(MethodCall methodCall) async {
     switch (methodCall.method) {
-      case "getMarkerLocations":
-        return UEMarkerMonitorController.instance
-            .getMarkerLocations()
-            .map((e) => e.toJson)
-            .toList();
+      case "fetchFlutterData":
+        Map<String, dynamic> payload = Map.from({});
+        var mode = methodCall.arguments["mode"] as String;
+
+        if (mode == "full") {
+          var locations = UEMarkerMonitorController.instance
+              .getMarkerLocations()
+              .map((e) => e.toJson)
+              .toList();
+          payload['locations'] = locations;
+          payload['wireframe'] = "";
+          var screenshot = await _fetchScreenshot();
+          if (screenshot != null) {
+            payload['screenshot'] = screenshot['screenshot'];
+            payload['height'] = screenshot['height'];
+            payload['width'] = screenshot['width'];
+            payload['format'] = screenshot['format'];
+          }
+        }
+        if (mode == "basic") {
+          var locations = UEMarkerMonitorController.instance
+              .getMarkerLocations()
+              .map((e) => e.toJson)
+              .toList();
+          payload['locations'] = locations;
+        }
+        return payload;
       default:
         return null;
     }
@@ -183,6 +212,98 @@ class MethodChannelUserExperior extends UserExperiorPlatform {
     final bool? isRecording =
         await methodChannel.invokeMethodOnMobile('isRecording');
     return isRecording;
+  }
+
+// endregion
+
+// region - Screenshot helpers
+
+  static bool _isProcessingScreenshot = false;
+
+  static double get _devicePixelRatio {
+    final views = PlatformDispatcher.instance.views;
+    final onAndroid = Platform.isAndroid;
+    return onAndroid ? views.first.devicePixelRatio : 1.0;
+  }
+
+  static Uint8List convertRawRgbaToArgb(Uint8List rgbaData) {
+    final int length = rgbaData.length;
+    final Uint8List argbData = Uint8List(length);
+
+    for (int i = 0; i < length; i += 4) {
+      argbData[i] = rgbaData[i + 3]; // Move A to front
+      argbData[i + 1] = rgbaData[i]; // Move R
+      argbData[i + 2] = rgbaData[i + 1]; // Move G
+      argbData[i + 3] = rgbaData[i + 2]; // Move B
+    }
+
+    return argbData;
+  }
+
+  static Future<Map<String, dynamic>?> _captureScreenshot(
+      RenderRepaintBoundary boundary,
+      Stopwatch watch) async {
+    try {
+      // final watch = Stopwatch()..start();
+      ui.Image image =
+          await boundary.toImage(pixelRatio: _devicePixelRatio);
+      int width = image.width;
+      int height = image.height;
+      debugPrint(
+          "ScreenshotRecorder02: screenshot finished at ${watch.elapsedMilliseconds}ms");
+      ByteData? byteData =
+          await image.toByteData(format: ui.ImageByteFormat.rawStraightRgba);
+      debugPrint(
+          "ScreenshotRecorder02: conversion to data finished at ${watch.elapsedMilliseconds}ms");
+      image.dispose();
+
+      if (byteData == null) return null;
+
+      Uint8List rgbaData = byteData.buffer.asUint8List();
+      debugPrint(
+          "ScreenshotRecorder02: conversion to rgbaData finished at ${watch.elapsedMilliseconds}ms");
+      Uint8List argbData = rgbaData;// convertRawRgbaToArgb(rgbaData);
+      debugPrint(
+          "ScreenshotRecorder02: conversion to argbData finished at ${watch.elapsedMilliseconds}ms");
+
+      // String base64String = base64Encode(byteData.buffer.asUint8List());
+      // debugPrint(base64String);
+
+      return {
+        "screenshot": argbData,
+        "width": width,
+        "height": height,
+        "format": 0,
+      };
+    } catch (e) {
+      debugPrint(e.toString());
+      debugPrint("ScreenshotRecorder00: error: ${e.toString()}");
+      return null;
+    }
+  }
+
+  static Future<Map<String, dynamic>?> _fetchScreenshot() async {
+    if (_isProcessingScreenshot) {
+      return null; // Skip this request
+    }
+    _isProcessingScreenshot = true; // Mark as in progress
+    debugPrint("ScreenshotRecorder00: Starting screenshot process");
+
+    try {
+      final watch = Stopwatch()..start();
+      final renderObject = UERenderTreeUtils.firstAppRepaintBoundary();
+      if (renderObject == null) {
+        debugPrint(
+            "ScreenshotRecorder00: Render is not found, skipping frame capture.");
+        return null;
+      }
+      debugPrint("ScreenshotRecorder01: search for render object finished at ${watch.elapsedMilliseconds}ms.");
+      var encodedData = await _captureScreenshot(renderObject, watch);
+      debugPrint("ScreenshotRecorder01: process finished at ${watch.elapsedMilliseconds}ms.");
+      return encodedData;
+    } finally {
+      _isProcessingScreenshot = false; // Mark as complete
+    }
   }
 // endregion
 }

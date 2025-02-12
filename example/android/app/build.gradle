@@ -30,19 +30,27 @@ def flutterTargetSdkVersion = localProperties.getProperty('flutter.targetSdkVers
 if (flutterTargetSdkVersion == null) {
     flutterTargetSdkVersion = '33'
 }
+def flutterCompileSdkVersion = localProperties.getProperty('flutter.compileSdkVersion')
+if (flutterCompileSdkVersion == null) {
+    flutterCompileSdkVersion = '34'
+}
+def flutterNdkVersion = localProperties.getProperty('flutter.ndkVersion')
+if (flutterNdkVersion == null) {
+    flutterNdkVersion = "27.0.12077973"
+}
 
 android {
     namespace "com.userexperior.user_experior_example"
-    compileSdk flutter.compileSdkVersion
-    ndkVersion flutter.ndkVersion
+    compileSdk flutterCompileSdkVersion.toInteger() // flutter.compileSdkVersion
+    ndkVersion flutterNdkVersion // flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 
     sourceSets {
