@@ -18,11 +18,10 @@ void main() {
 
   configureDependencies();
 
-  runApp(const UEExampleApp());
+  runApp(const UERecordingWidget(child: UEExampleApp()));
 }
 
 class UEExampleApp extends StatelessWidget {
-
   const UEExampleApp({super.key});
 
   @override
