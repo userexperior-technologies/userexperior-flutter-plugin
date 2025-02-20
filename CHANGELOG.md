@@ -1,3 +1,6 @@
+# 5.0.8
+* Optimisations done for frame capturing and masking
+
 # 5.0.7
 * Minor Bug Fixes and optimisations
 
