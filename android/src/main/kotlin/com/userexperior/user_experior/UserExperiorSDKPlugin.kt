@@ -150,6 +150,7 @@ private fun HashMap<String, String>.toUEPlatformMask(): UEPlatformMask {
     return UEPlatformMask(identifier, x, y, w, h)
 }
 
+@Suppress("unused")
 private class UserExperiorTimer {
     private var start: Long = 0L
 
