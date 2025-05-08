@@ -70,6 +70,19 @@ class MethodChannelUserExperior extends UserExperiorPlatform {
     }
   }
 
+  bool _debugMode = false;
+
+  // region - Trigger from flutter
+  @override
+  bool get debugMode {
+    return _debugMode;
+  }
+
+  @override
+  set debugMode(bool newValue) {
+    _debugMode = newValue;
+  }
+
   // endregion
 
   // region - Trigger from flutter
@@ -241,31 +254,39 @@ class MethodChannelUserExperior extends UserExperiorPlatform {
   }
 
   static Future<Map<String, dynamic>?> _captureScreenshot(
-      RenderRepaintBoundary boundary,
-      Stopwatch watch) async {
+      RenderRepaintBoundary boundary, Stopwatch watch) async {
     try {
       // final watch = Stopwatch()..start();
-      ui.Image image =
-          await boundary.toImage(pixelRatio: _devicePixelRatio);
+      ui.Image image = await boundary.toImage(pixelRatio: _devicePixelRatio);
       int width = image.width;
       int height = image.height;
-      debugPrint(
-          "ScreenshotRecorder02: screenshot finished at ${watch.elapsedMilliseconds}ms");
+      if (UserExperior.debugMode) {
+        debugPrint(
+            "ScreenshotRecorder02: screenshot finished at ${watch.elapsedMilliseconds}ms");
+      }
       ByteData? byteData =
-          await image.toByteData(format: ui.ImageByteFormat.rawStraightRgba);
-      debugPrint(
-          "ScreenshotRecorder02: conversion to data finished at ${watch.elapsedMilliseconds}ms");
+      await image.toByteData(format: ui.ImageByteFormat.rawStraightRgba);
+      if (UserExperior.debugMode) {
+        debugPrint(
+            "ScreenshotRecorder02: conversion to data finished at ${watch
+                .elapsedMilliseconds}ms");
+      }
       image.dispose();
 
       if (byteData == null) return null;
 
       Uint8List rgbaData = byteData.buffer.asUint8List();
-      debugPrint(
-          "ScreenshotRecorder02: conversion to rgbaData finished at ${watch.elapsedMilliseconds}ms");
-      Uint8List argbData = rgbaData;// convertRawRgbaToArgb(rgbaData);
-      debugPrint(
-          "ScreenshotRecorder02: conversion to argbData finished at ${watch.elapsedMilliseconds}ms");
-
+      if (UserExperior.debugMode) {
+        debugPrint(
+            "ScreenshotRecorder02: conversion to rgbaData finished at ${watch
+                .elapsedMilliseconds}ms");
+      }
+      Uint8List argbData = rgbaData; // convertRawRgbaToArgb(rgbaData);
+      if (UserExperior.debugMode) {
+        debugPrint(
+            "ScreenshotRecorder02: conversion to argbData finished at ${watch
+                .elapsedMilliseconds}ms");
+      }
       // String base64String = base64Encode(byteData.buffer.asUint8List());
       // debugPrint(base64String);
 
@@ -277,7 +298,9 @@ class MethodChannelUserExperior extends UserExperiorPlatform {
       };
     } catch (e) {
       debugPrint(e.toString());
-      debugPrint("ScreenshotRecorder00: error: ${e.toString()}");
+      if (UserExperior.debugMode) {
+        debugPrint("ScreenshotRecorder00: error: ${e.toString()}");
+      }
       return null;
     }
   }
@@ -287,19 +310,28 @@ class MethodChannelUserExperior extends UserExperiorPlatform {
       return null; // Skip this request
     }
     _isProcessingScreenshot = true; // Mark as in progress
-    debugPrint("ScreenshotRecorder00: Starting screenshot process");
-
+    final now = DateTime.now();
     try {
       final watch = Stopwatch()..start();
       final renderObject = UERenderTreeUtils.firstAppRepaintBoundary();
       if (renderObject == null) {
-        debugPrint(
-            "ScreenshotRecorder00: Render is not found, skipping frame capture.");
+        if (UserExperior.debugMode) {
+          debugPrint(
+              "ScreenshotRecorder00: Render is not found, skipping frame capture.");
+        }
         return null;
       }
-      debugPrint("ScreenshotRecorder01: search for render object finished at ${watch.elapsedMilliseconds}ms.");
+      if (UserExperior.debugMode) {
+        debugPrint(
+            "ScreenshotRecorder01: search for render object finished at ${watch
+                .elapsedMilliseconds}ms.");
+      }
       var encodedData = await _captureScreenshot(renderObject, watch);
-      debugPrint("ScreenshotRecorder01: process finished at ${watch.elapsedMilliseconds}ms.");
+      if (UserExperior.debugMode) {
+        debugPrint(
+            "ScreenshotRecorder01: process finished at ${watch
+                .elapsedMilliseconds}ms.");
+      }
       return encodedData;
     } finally {
       _isProcessingScreenshot = false; // Mark as complete

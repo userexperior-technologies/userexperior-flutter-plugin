@@ -10,6 +10,10 @@ class UserExperior {
   /// The default instance of [UserExperior] to use.
   static UserExperior get instance => _instance;
 
+  static bool get debugMode => UserExperiorPlatform.instance.debugMode;
+
+  static set debugMode(bool newValue) => UserExperiorPlatform.instance.debugMode = newValue;
+
   Future<String?> getPlatformVersion() {
     return UserExperiorPlatform.instance.getPlatformVersion();
   }

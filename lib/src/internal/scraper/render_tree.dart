@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'render_node.dart';
 
 class UERenderTreeUtils {
-  static bool showLogs = true;
+  static bool showLogs = false;
 
   static UERenderNode _scrape(RenderObject renderObject) {
     final children = <UERenderNode>[];
