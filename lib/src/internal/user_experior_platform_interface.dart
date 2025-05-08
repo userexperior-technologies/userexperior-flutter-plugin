@@ -23,6 +23,9 @@ abstract class UserExperiorPlatform extends PlatformInterface {
     _instance = instance;
   }
 
+  bool get debugMode;
+  set debugMode(bool newValue);
+
   Future<String?> getPlatformVersion() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
