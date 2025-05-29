@@ -1,3 +1,6 @@
+# 6.0.0
+* Performance improvements and optimisations
+
 # 5.1.0
 * Bug fixes and optimisations
 

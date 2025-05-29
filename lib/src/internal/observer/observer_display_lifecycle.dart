@@ -1,7 +1,5 @@
 import 'package:flutter/widgets.dart';
-
-import '../visibility/visibility_detector_snapshot.dart';
-import '../visibility/visibility_detector_widget.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 class DisplayLifecycleObserver extends StatefulWidget {
   // region - attributes
@@ -74,9 +72,9 @@ class _DisplayLifecycleObserverState extends State<DisplayLifecycleObserver>
 
   @override
   Widget build(BuildContext context) {
-    return VisibilityDetectorWidget(
+    return VisibilityDetector(
       key: _visibilityDetectorKey,
-      onVisibilityChanged: (VisibilitySnapshot snapshot) {
+      onVisibilityChanged: (VisibilityInfo snapshot) {
         _isAppInVisible = snapshot.visibleFraction == 0.0;
         notifyToggleCallback();
       },
