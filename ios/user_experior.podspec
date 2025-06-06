@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'user_experior'
-  s.version          = '5.0.0'
+  s.version          = '6.0.1'
   s.summary          = 'Understand and fix user experience issues.'
   s.description      = <<-DESC
 'Understand and fix user experience issues..
@@ -24,5 +24,5 @@ Pod::Spec.new do |s|
   s.swift_version = '5.0'
 
   s.dependency 'Flutter'
-  s.dependency 'UserExperior', '6.0.8'
+  s.dependency 'UserExperior', '6.0.16'
 end

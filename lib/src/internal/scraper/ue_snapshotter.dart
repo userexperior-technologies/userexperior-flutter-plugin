@@ -1,38 +1,28 @@
 import 'dart:async';
 import 'dart:ui' as ui;
-import 'dart:io';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'render_tree.dart';
+import 'screen_metrics.dart';
 
 class UESnapshotter {
+  // Prevent concurrent screenshot processing.
   static bool _isProcessingScreenshot = false;
 
-  static final double _devicePixelRatio = _getDevicePixelRatio();
-
-  static double _getDevicePixelRatio() {
-    final views = PlatformDispatcher.instance.views;
-    final onAndroid = Platform.isAndroid;
-    return onAndroid ? views.first.devicePixelRatio : 1.0;
-  }
-  // these 3 are also running fine
-  static Future<Map<String, dynamic>?> fetchScreenshot() async {
+  /// Triggers a screenshot capture from the first app render object.
+  static Future<Map<String, dynamic>?> fetchEncodedScreenshot() async {
     if (_isProcessingScreenshot) return null;
 
     _isProcessingScreenshot = true;
     try {
-      // Delay screenshot to allow the UI to settle: delay affects masking to not work properly
-      //await Future.delayed(const Duration(milliseconds: 200));
-
       final RenderRepaintBoundary? boundary = UERenderTreeUtils.firstAppRepaintBoundary();
 
       if (boundary == null) {
-        debugPrint("ScreenshotRecorder: No repaint boundary found.");
         return null;
       }
 
-      // Ensure screenshot is captured after current frame
+      // Ensure screenshot is captured after current frame.
       return await _captureAfterNextFrame(boundary);
     } finally {
       _isProcessingScreenshot = false;
@@ -43,25 +33,39 @@ class UESnapshotter {
       RenderRepaintBoundary boundary) async {
     final completer = Completer<Map<String, dynamic>?>();
 
-    // Wait until the frame is painted
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      try {
-        final result = await _captureScreenshot(boundary);
-        completer.complete(result);
-      } catch (e, stackTrace) {
-        debugPrint("ScreenshotRecorder: Exception: $e\n$stackTrace");
-        completer.complete(null);
-      }
+    // Check if Flutter has already scheduled a frame.
+    // If not, request a new frame. This ensures that the widget tree
+    // has time to layout and paint before we try to capture it.
+    //
+    // This step is crucial for single-screen apps or situations
+    // where no frame transition (e.g., no setState/navigation) occurs,
+    // as the UI may otherwise appear blank or unpainted.
+    if (!WidgetsBinding.instance.hasScheduledFrame) {
+      WidgetsBinding.instance.scheduleFrame();
+    }
+
+    // Wait until the frame is painted and the widget tree is stable.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Use microtask to ensure execution after rendering.
+      Future.microtask(() async {
+        try {
+          final imageData = await _captureScreenshot(boundary);
+          completer.complete(imageData);
+        } catch (e) {
+          completer.complete(null);
+        }
+      });
     });
 
     return completer.future;
   }
 
+  /// Captures a screenshot from the given [RenderRepaintBoundary].
   static Future<Map<String, dynamic>?> _captureScreenshot(
       RenderRepaintBoundary boundary) async {
     try {
       final ui.Image image =
-      await boundary.toImage(pixelRatio: _devicePixelRatio);
+      await boundary.toImage(pixelRatio: ScreenMetrics.devicePixelRatio);
 
       final int width = image.width;
       final int height = image.height;
@@ -69,13 +73,15 @@ class UESnapshotter {
       ByteData? byteData = await image.toByteData(
         format: ui.ImageByteFormat.rawStraightRgba,
       );
-      image.dispose(); // Free GPU memory
+
+      // Free GPU memory.
+      image.dispose();
 
       if (byteData == null) return null;
 
       final Uint8List rgbaData = byteData.buffer.asUint8List();
 
-      // Clean up large references early
+      // Clean up large references early.
       byteData = null;
 
       return {
@@ -84,8 +90,7 @@ class UESnapshotter {
         "height": height,
         "format": 0,
       };
-    } catch (e, stackTrace) {
-      debugPrint("ScreenshotRecorder: Capture failed: $e\n$stackTrace");
+    } catch (e) {
       return null;
     }
   }
