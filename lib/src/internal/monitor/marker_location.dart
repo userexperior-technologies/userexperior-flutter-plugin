@@ -1,21 +1,15 @@
-import 'dart:io';
 import 'dart:ui';
+import '../scraper/screen_metrics.dart';
 
 class UEMarkerLocation {
-  // region - attributes
   final String uuid;
   final Rect rect;
   bool get isValid => rect.isFinite && !rect.isEmpty && !rect.isInfinite;
-  final bool isAndroid = Platform.isAndroid;
-  final double devicePixelRatio = PlatformDispatcher.instance.views.first.devicePixelRatio;
 
-  // endregion
-  // region - constructor
   UEMarkerLocation({required this.uuid, required this.rect});
-  // endregion
 
   Map<String, String> get toJson {
-    double ratioToDouble(double value) => value * (isAndroid ? devicePixelRatio : 1.0);
+    double ratioToDouble(double value) => value * ScreenMetrics.devicePixelRatio;
 
     return {
       'i': uuid,

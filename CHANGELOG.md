@@ -1,3 +1,6 @@
+# 6.0.1
+* Linked the latest version of the UE iOS SDK, performance improvements and optimisations
+
 # 6.0.0
 * Performance improvements and optimisations
 
