@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'dart:ui';
 import 'package:flutter/widgets.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -11,6 +13,8 @@ class DisplayLifecycleObserver extends StatefulWidget {
 
   /// Callback on when screen is not in focus
   final VoidCallback? _onLost;
+
+  static final double devicePixelRatio = Platform.isAndroid ? PlatformDispatcher.instance.views.first.devicePixelRatio : 1.0;
 
   // endregion
 

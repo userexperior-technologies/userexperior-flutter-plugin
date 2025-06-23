@@ -1,5 +1,5 @@
 import 'dart:ui';
-import '../scraper/screen_metrics.dart';
+import '../observer/observer_display_lifecycle.dart';
 
 class UEMarkerLocation {
   final String uuid;
@@ -9,7 +9,7 @@ class UEMarkerLocation {
   UEMarkerLocation({required this.uuid, required this.rect});
 
   Map<String, String> get toJson {
-    double ratioToDouble(double value) => value * ScreenMetrics.devicePixelRatio;
+    double ratioToDouble(double value) => value * DisplayLifecycleObserver.devicePixelRatio;
 
     return {
       'i': uuid,

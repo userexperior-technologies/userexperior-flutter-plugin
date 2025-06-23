@@ -6,7 +6,6 @@ import 'package:user_experior/src/internal/scraper/ue_snapshotter.dart';
 import '../ue_plugin.dart';
 import 'extensions/extensions_method_channel.dart';
 import 'monitor/marker_monitor_controller.dart';
-import 'scraper/screen_metrics.dart';
 import 'user_experior_platform_interface.dart';
 
 /// Native channels.
@@ -87,10 +86,6 @@ class MethodChannelUserExperior extends UserExperiorPlatform {
 
   @override
   Future<void> startRecording(String ueVersionKey) async {
-    // Force ScreenMetrics singleton initialization to listen for metric changes.
-    // This ensures observer is registered and avoids tree-shaking removal.
-    final _ = ScreenMetrics();
-
     await methodChannel.invokeMethodOnMobile('startRecording', {
       "ueVersionKey": ueVersionKey,
       "fw": UserExperior.fw,

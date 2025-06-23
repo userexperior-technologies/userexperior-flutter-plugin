@@ -4,7 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'render_tree.dart';
-import 'screen_metrics.dart';
+import '../observer/observer_display_lifecycle.dart';
 
 class UESnapshotter {
   // Prevent concurrent screenshot processing.
@@ -19,6 +19,7 @@ class UESnapshotter {
       final RenderRepaintBoundary? boundary = UERenderTreeUtils.firstAppRepaintBoundary();
 
       if (boundary == null) {
+        debugPrint("UESnapshotter: No repaint boundary found.");
         return null;
       }
 
@@ -29,8 +30,7 @@ class UESnapshotter {
     }
   }
 
-  static Future<Map<String, dynamic>?> _captureAfterNextFrame(
-      RenderRepaintBoundary boundary) async {
+  static Future<Map<String, dynamic>?> _captureAfterNextFrame(RenderRepaintBoundary boundary) async {
     final completer = Completer<Map<String, dynamic>?>();
 
     // Check if Flutter has already scheduled a frame.
@@ -44,35 +44,41 @@ class UESnapshotter {
       WidgetsBinding.instance.scheduleFrame();
     }
 
-    // Wait until the frame is painted and the widget tree is stable.
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Use microtask to ensure execution after rendering.
-      Future.microtask(() async {
-        try {
-          final imageData = await _captureScreenshot(boundary);
-          completer.complete(imageData);
-        } catch (e) {
+    // Wait for full frame to complete.
+    await WidgetsBinding.instance.endOfFrame;
+
+    // Ensure UI is painted.
+    await Future.delayed(Duration.zero);
+
+    // Use microtask to ensure execution after rendering.
+    Future.microtask(() async {
+      try {
+        // Validate boundary one last time before capture
+        if (boundary.debugNeedsPaint || boundary.size.isEmpty || !boundary.attached) {
+          debugPrint("UESnapshotter: Boundary not ready. Skipping screenshot.");
           completer.complete(null);
+          return;
         }
-      });
+
+        final imageData = await _captureScreenshot(boundary);
+        completer.complete(imageData);
+      } catch (e, stackTrace) {
+        debugPrint("UESnapshotter: Screenshot error: $e\n$stackTrace");
+        completer.complete(null);
+      }
     });
 
     return completer.future;
   }
 
   /// Captures a screenshot from the given [RenderRepaintBoundary].
-  static Future<Map<String, dynamic>?> _captureScreenshot(
-      RenderRepaintBoundary boundary) async {
+  static Future<Map<String, dynamic>?> _captureScreenshot(RenderRepaintBoundary boundary) async {
     try {
-      final ui.Image image =
-      await boundary.toImage(pixelRatio: ScreenMetrics.devicePixelRatio);
-
+      final ui.Image image = await boundary.toImage(pixelRatio: DisplayLifecycleObserver.devicePixelRatio);
       final int width = image.width;
       final int height = image.height;
 
-      ByteData? byteData = await image.toByteData(
-        format: ui.ImageByteFormat.rawStraightRgba,
-      );
+      ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.rawStraightRgba);
 
       // Free GPU memory.
       image.dispose();
@@ -91,6 +97,7 @@ class UESnapshotter {
         "format": 0,
       };
     } catch (e) {
+      debugPrint("UESnapshotter: Exception in _captureScreenshot: $e");
       return null;
     }
   }
