@@ -1,3 +1,21 @@
+# 6.0.2
+* Rolled back to native Flutter capturing instead of Dart
+
+# 6.0.1
+* Linked the latest version of the UE iOS SDK, performance improvements and optimisations
+
+# 6.0.0
+* Performance improvements and optimisations
+
+# 5.1.0
+* Bug fixes and optimisations
+
+# 5.0.9
+* Bug fixes and optimisations
+
+# 5.0.8
+* Optimisations done for frame capturing and masking
+
 # 5.0.7
 * Minor Bug Fixes and optimisations
 
