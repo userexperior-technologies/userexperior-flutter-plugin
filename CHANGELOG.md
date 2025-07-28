@@ -1,3 +1,6 @@
+# 6.0.3
+* Disabled automatic tagging of native screens
+
 # 6.0.2
 * Rolled back to native Flutter capturing instead of Dart
 
